@@ -1,0 +1,5 @@
+[client]
+database = personal_finance
+user = root
+password = Peep9447!
+default-character-set = utf8

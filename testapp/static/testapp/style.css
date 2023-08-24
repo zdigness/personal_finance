@@ -1,0 +1,36 @@
+html,
+body {
+    background-color: black;
+}
+
+li {
+    color: green
+}
+
+ul {
+    list-style-type: none;
+}
+
+h1 {
+    color: white;
+}
+
+.category_list {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.category {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.category h2 {
+    padding: 10px;
+}

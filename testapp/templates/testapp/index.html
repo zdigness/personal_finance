@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		{% extends '../base/base.html' %} 
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'testapp/style.css' %}">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		{% block content %}
+		{% if spending_categories_list %}
+		<div class="category_list">
+			<h1>Your Spending</h1>
+			{% for category in spending_categories_list %}
+				<div class="category"><h2>{{ category.spending_category }}</h2>
+				<h2>${{ category.monthly_budget }}</h2>
+				<h2>${{category.current_spending}}</h2></div>
+			{% endfor %}
+		</div>
+		{% else %}
+		<p>No spending categories created.</p>
+		{% endif %} 
+		{% endblock %}
+	</body>
+</html>
