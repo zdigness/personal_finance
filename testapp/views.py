@@ -23,3 +23,24 @@ class IndexView(generic.ListView):
         context["debt"] = Debt.objects.all()
         context["debt_payment"] = Debt_Payment.objects.all()
         return context
+
+
+def spend(request, spending_category_id):
+    spending_category = get_object_or_404(Spending_Category, pk=spending_category_id)
+    try:
+        selected_spending = spending_category.spending_set.get(
+            pk=request.POST["spending"]
+        )
+    except (KeyError, Spending.DoesNotExist):
+        return render(
+            request,
+            "testapp/index.html",
+            {
+                "spending_categories_list": Spending_Category.objects.all(),
+                "error_message": "You didn't select a spending.",
+            },
+        )
+    else:
+        selected_spending.spending_amount += 1
+        selected_spending.save()
+        return HttpResponseRedirect(reverse("testapp:index"))
