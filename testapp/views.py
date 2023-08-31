@@ -1,11 +1,14 @@
-from typing import Any
 from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 
 from .models import Spending_Category, Spending, Income, Savings, Debt, Debt_Payment
+
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 
 class IndexView(generic.ListView):
@@ -23,6 +26,21 @@ class IndexView(generic.ListView):
         context["debt"] = Debt.objects.all()
         context["debt_payment"] = Debt_Payment.objects.all()
         return context
+
+    def post(self, request):
+        if request.method == "POST":
+            username = request.POST["username"]
+            password = request.POST["password"]
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Logged in successfully")
+                return redirect(reverse("testapp:index"))
+            else:
+                messages.error(request, "Invalid username or password")
+                return redirect(reverse("testapp:index"))
+        else:
+            return render(request, "testapp/index.html")
 
 
 def spend(request, spending_category_id):
@@ -44,3 +62,7 @@ def spend(request, spending_category_id):
         selected_spending.spending_amount += 1
         selected_spending.save()
         return HttpResponseRedirect(reverse("testapp:index"))
+
+
+def logout_user(request):
+    pass

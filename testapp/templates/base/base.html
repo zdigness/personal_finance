@@ -28,7 +28,7 @@
 	<body>
 		<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="{ % url 'index' % }">Finance</a>
+				<a class="navbar-brand" href="{% url 'testapp:index' %}">Finance</a>
 				<button
 					class="navbar-toggler"
 					type="button"
@@ -49,6 +49,15 @@
 				</div>
 			</div>
 		</nav>
+
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				{{ message }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			{% endfor %}
+		{% endif %}
 		{% block content %} {% endblock %}
 	</body>
 </html>

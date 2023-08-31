@@ -8,6 +8,9 @@
 	</head>
 	<body>
 		{% block content %}
+
+		{% if user.is_authenticated %}
+
 		{% if spending_categories_list %}
 		<div class="category-list">
 			<div class="category-heading"><h1>Your Spending</h1></div>
@@ -22,13 +25,15 @@
 				<h2 id="current">${{ category.monthly_budget }}</h2>
 				<h2 id="spent">${{ category.current_spending }}</h2>
 				<h2 id="result"></h2>
-				<button data-form-target="#form">+</button>
 				</div>
 				<script>
 				calculate();
 				</script>
 			{% endfor %}
-		</div>
+			<div class="button-div">
+				<button type="button" class="btn btn-success">Log</button>
+			</div>
+			</div>
 		<div class="form">
 			<form class="form-item">
 				<div class="form-fills">
@@ -44,6 +49,27 @@
 		<div id="overlay"></div>
 		{% else %}
 		<p>No spending categories created.</p>
+		{% endif %}
+
+		{% else %}
+		<div class="login-form">
+			<form method="POST" action="{% url 'testapp:index' %}">
+				{% csrf_token %}
+				<form>
+					<div class="mb-3">
+					  <label class="form-label">Username</label>
+					  <input type="username" class="form-control" name="username" placeholder="username" required>
+					</div>
+					<div class="mb-3">
+					  <label for="exampleInputPassword1" class="form-label">Password</label>
+					  <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="password" required>
+					</div>
+					<div class="login-submit">
+					<button type="submit" class="btn btn-primary">Login</button>
+					</div>
+				  </form>
+			</form>
+			</div>
 		{% endif %}
 		{% endblock %}
 	</body>

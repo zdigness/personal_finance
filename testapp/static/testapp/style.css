@@ -144,3 +144,30 @@ body {
     opacity: 1;
     pointer-events: all;
 }
+
+.btn-success {
+    margin: 10px;
+    max-width: 100px;
+    width: 100%;
+}
+
+.button-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+}
+
+.login-submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
