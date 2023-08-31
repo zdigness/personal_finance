@@ -42,9 +42,18 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						{% if user.is_authenticated %}
 						<li class="nav-item">
-							<a class="nav-link" href="#">Link</a>
+							<a class="nav-link" href="{% url 'testapp:logout' %}">Logout</a>
 						</li>
+
+						{% else %}
+
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'testapp:index' %}">Login</a>
+						</li>
+
+						{% endif %}
 					</ul>
 				</div>
 			</div>
@@ -52,9 +61,11 @@
 
 		{% if messages %}
 			{% for message in messages %}
+			<div class="auth-alerts">
 			<div class="alert alert-warning alert-dismissible fade show" role="alert">
 				{{ message }}
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
 			</div>
 			{% endfor %}
 		{% endif %}

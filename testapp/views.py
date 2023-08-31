@@ -65,4 +65,6 @@ def spend(request, spending_category_id):
 
 
 def logout_user(request):
-    pass
+    logout(request)
+    messages.success(request, "Logged out successfully")
+    return redirect(reverse("testapp:index"))
