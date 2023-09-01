@@ -10,6 +10,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
+from .forms import SignUpForm
+
 
 class IndexView(generic.ListView):
     template_name = "testapp/index.html"
@@ -29,42 +31,42 @@ class IndexView(generic.ListView):
 
     def post(self, request):
         if request.method == "POST":
-            username = request.POST["username"]
-            password = request.POST["password"]
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.success(request, "Logged in successfully")
-                return redirect(reverse("testapp:index"))
+            if request.user.is_authenticated:
+                pass
             else:
-                messages.error(request, "Invalid username or password")
-                return redirect(reverse("testapp:index"))
+                username = request.POST["username"]
+                password = request.POST["password"]
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    messages.success(request, "Logged in successfully")
+                    return redirect(reverse("testapp:index"))
+                else:
+                    messages.error(request, "Invalid username or password")
+                    return redirect(reverse("testapp:index"))
         else:
             return render(request, "testapp/index.html")
-
-
-def spend(request, spending_category_id):
-    spending_category = get_object_or_404(Spending_Category, pk=spending_category_id)
-    try:
-        selected_spending = spending_category.spending_set.get(
-            pk=request.POST["spending"]
-        )
-    except (KeyError, Spending.DoesNotExist):
-        return render(
-            request,
-            "testapp/index.html",
-            {
-                "spending_categories_list": Spending_Category.objects.all(),
-                "error_message": "You didn't select a spending.",
-            },
-        )
-    else:
-        selected_spending.spending_amount += 1
-        selected_spending.save()
-        return HttpResponseRedirect(reverse("testapp:index"))
 
 
 def logout_user(request):
     logout(request)
     messages.success(request, "Logged out successfully")
     return redirect(reverse("testapp:index"))
+
+
+def register_user(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password1"]
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            messages.success(request, "Registered successfully")
+            return redirect(reverse("testapp:index"))
+        else:
+            return render(request, "testapp/register.html", {"form": form})
+    else:
+        form = SignUpForm()
+        return render(request, "testapp/register.html", {"form": form})
