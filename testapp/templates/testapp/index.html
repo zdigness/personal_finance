@@ -51,6 +51,10 @@
 		<p>No spending categories created.</p>
 		{% endif %}
 
+		{% for saving in savings %}
+		{{saving}}
+		{% endfor %}
+
 		{% else %}
 		<div class="login-form">
 			<form method="POST" action="{% url 'testapp:index' %}">

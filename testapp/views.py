@@ -18,7 +18,7 @@ class IndexView(generic.ListView):
     context_object_name = "spending_categories_list"
 
     def get_queryset(self):
-        return Spending_Category.objects.all()
+        return Spending_Category.objects.filter(user_id=self.request.user.id)
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
