@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from .models import Spending_Category, Spending, Income, Savings, Debt, Debt_Payment
+
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(
@@ -62,3 +64,9 @@ class SignUpForm(UserCreationForm):
         self.fields[
             "password2"
         ].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
+
+
+class Log_Payment(forms.ModelForm):
+    spending_category = forms.CharField(max_length=200)
+    monthly_budget = forms.DecimalField(max_digits=10, decimal_places=2)
+    current_spending = forms.DecimalField(max_digits=10, decimal_places=2)

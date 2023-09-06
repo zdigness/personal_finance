@@ -26,27 +26,85 @@
 				<h2 id="spent">${{ category.current_spending }}</h2>
 				<h2 id="result"></h2>
 				</div>
-				<script>
-				calculate();
-				</script>
 			{% endfor %}
+			<script>
+				calculate();
+			</script>
 			<div class="button-div">
-				<button type="button" class="btn btn-success">Log</button>
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#payModal" data-bs-whatever="@mdo">Log</button>
+				<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal" data-bs-whatever="@adg">Create</button>
 			</div>
-			</div>
-		<div class="form">
-			<form class="form-item">
-				<div class="form-fills">
-				<label for="spend">Enter Amount Spent:</label>
-				<input type="text" id="spend" name="spend" placeholder="Enter Amount Spent" required>
-				</div>
-				<div class="form-buttons">
-				<button data-submit-button type="submit" class="submit-button">Submit</button>
-				<button data-close-button class="close-button">&times;</button>
-				</div>
-			</form>
 		</div>
-		<div id="overlay"></div>
+		<div>
+
+		<div>
+		<div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h1 class="modal-title fs-5" id="exampleModalLabel">Log a payment</h1>
+				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				  <form action="" method="post">
+					{% csrf_token %}
+					<div class="mb-3">
+					  <label for="category_spent" class="col-form-label">Category:</label>
+					  <select  id="category_chosen" name="category">
+						{% for category in spending_categories_list %}
+						<option value="{{ category.spending_category }}">{{ category.spending_category }}</option>
+						{% endfor %}
+					  </select>
+					</div>
+					<div class="mb-3">
+					  <label for="message-text" class="col-form-label">Amount Spent:</label>
+					  <textarea class="form-control" id="message-text" name="amount"></textarea>
+					</div>
+					<div class="modal-footer">
+						<input type="submit" class="btn btn-primary" name="action" value="Submit">
+					</div>
+				</form>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+
+		<div>
+		<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel2">New message</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form action="" method="post">
+					{% csrf_token %}
+				<div class="mb-3">
+					<label for="category-name" class="col-form-label">Category Name:</label>
+					<input type="text" class="form-control" name="category-name">
+				</div>
+				<div class="mb-3">
+					<label for="message-text" class="col-form-label">Monthly Budget:</label>
+					<textarea type="text" class="form-control" name="monthly-budget"></textarea>
+				</div>
+				<div class="mb-3">
+					<label for="message-text" class="col-form-label">Current Spending:</label>
+					<textarea type="text" class="form-control" name="current-spending"></textarea>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-primary" name="action" value="Create">
+				</div>
+				  </form>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		</div>
+
+
 		{% else %}
 		<p>No spending categories created.</p>
 		{% endif %}

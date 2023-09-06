@@ -30,22 +30,41 @@ class IndexView(generic.ListView):
         return context
 
     def post(self, request):
-        if request.method == "POST":
-            if request.user.is_authenticated:
-                pass
-            else:
-                username = request.POST["username"]
-                password = request.POST["password"]
-                user = authenticate(request, username=username, password=password)
-                if user is not None:
-                    login(request, user)
-                    messages.success(request, "Logged in successfully")
+        if request.user.is_authenticated:
+            if request.method == "POST":
+                if request.POST["action"] == "Submit":
+                    amount = request.POST["amount"]
+                    category = request.POST["category"]
+                    spending_category = Spending_Category.objects.get(
+                        spending_category=category
+                    )
+                    spending_category.current_spending = float(
+                        spending_category.current_spending
+                    ) + float(amount)
+                    spending_category.save()
                     return redirect(reverse("testapp:index"))
-                else:
-                    messages.error(request, "Invalid username or password")
+                if request.POST["action"] == "Create":
+                    category = request.POST["category-name"]
+                    budget = request.POST["monthly-budget"]
+                    current = request.POST["current-spending"]
+                    Spending_Category.objects.create(
+                        user_id=request.user.id,
+                        spending_category=category,
+                        monthly_budget=budget,
+                        current_spending=current,
+                    )
                     return redirect(reverse("testapp:index"))
         else:
-            return render(request, "testapp/index.html")
+            username = request.POST["username"]
+            password = request.POST["password"]
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Logged in successfully")
+                return redirect(reverse("testapp:index"))
+            else:
+                messages.error(request, "Invalid username or password")
+                return redirect(reverse("testapp:index"))
 
 
 def logout_user(request):
