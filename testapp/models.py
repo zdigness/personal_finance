@@ -32,6 +32,8 @@ class Income(models.Model):
 
 
 class Savings(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="1")
+    savings_account = models.CharField(max_length=200, default="Savings")
     savings_amount = models.DecimalField(max_digits=10, decimal_places=2)
     pub_date = models.DateTimeField(auto_now_add=True)
 
@@ -40,6 +42,8 @@ class Savings(models.Model):
 
 
 class Debt(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="1")
+    debt_account = models.CharField(max_length=200)
     debt_amount = models.DecimalField(max_digits=10, decimal_places=2)
     pub_date = models.DateTimeField(auto_now_add=True)
 

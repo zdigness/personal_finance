@@ -54,6 +54,14 @@ class IndexView(generic.ListView):
                         current_spending=current,
                     )
                     return redirect(reverse("testapp:index"))
+                if request.POST["action"] == "Submit Debt":
+                    amount = request.POST["debt-amount"]
+                    account = request.POST["debt-account"]
+                    Debt.objects.create(
+                        debt_account=account,
+                        debt_amount=amount,
+                    )
+                    return redirect(reverse("testapp:index"))
         else:
             username = request.POST["username"]
             password = request.POST["password"]

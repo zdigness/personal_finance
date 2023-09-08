@@ -11,6 +11,7 @@
 
 		{% if user.is_authenticated %}
 
+		<div class="spending">
 		{% if spending_categories_list %}
 		<div class="category-list">
 			<div class="category-heading"><h1>Your Spending</h1></div>
@@ -108,10 +109,92 @@
 		{% else %}
 		<p>No spending categories created.</p>
 		{% endif %}
+		</div>
 
-		{% for saving in savings %}
-		{{saving}}
-		{% endfor %}
+		<div class="savings-debts">
+
+		<div class="savings-list">
+			<div class="savings-heading">
+			<h1>Your Savings</h1>
+			</div>
+			{% if savings %}
+			<div class="saving-list">
+				<div class="savings-sorting">
+					<h2 class="needs-border">Account</h2>
+					<h2>Amount</h2>
+				</div>
+			{% for saving in savings %}
+			<div class="saving-item">
+				<div>
+					<h2>{{ saving.savings_account }}</h2>
+				</div>
+				<div>
+					<h2>${{ saving.savings_amount }}</h2>
+				</div>
+			{% endfor %}
+			{% else %}
+			<p>No savings created.</p>
+			{% endif %}
+			</div>
+			</div>
+		</div>
+
+		<div class="debts-list">
+			<div class="debts-heading">
+			<h1>Your Debts</h1>
+			</div>
+			{% if debt %}
+			<div class="debt-list">
+				<div class="debt-sorting">
+					<h2 class="needs-border">Debt</h2>
+					<h2>Amount</h2>
+				</div>
+			{% for debt in debt %}
+			<div class="debt-item">
+				<div>
+					<h2>{{ debt.debt_account }}</h2>
+				</div>
+				<div>
+					<h2>${{ debt.debt_amount }}</h2>
+				</div>
+			</div>
+			{% endfor %}
+
+			{% else %}
+			<p>No debts created.</p>
+			<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#debtModal" data-bs-whatever="@adg">Create</button>
+			{% endif %}
+			</div>
+
+		</div>
+
+		<div class="modal fade" id="debtModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h1 class="modal-title fs-5" id="exampleModalLabel">Log a debt</h1>
+				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				  <form action="" method="post">
+					{% csrf_token %}
+					<div class="mb-3">
+					  <label for="message-text" class="col-form-label">Debt account:</label>
+					  <textarea class="form-control" id="message-text" name="debt-account"></textarea>
+					</div>
+					<div class="mb-3">
+						<label for="message-text" class="col-form-label">Debt amount:</label>
+						<textarea class="form-control" id="message-text" name="debt-amount"></textarea>
+					  </div>
+					<div class="modal-footer">
+						<input type="submit" class="btn btn-primary" name="action" value="Submit Debt">
+					</div>
+				</form>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
 
 		{% else %}
 		<div class="login-form">
