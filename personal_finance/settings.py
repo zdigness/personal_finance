@@ -78,7 +78,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "OPTIONS": {
-            "read_default_file": "C:\\Users\\zdign\\Desktop\\Code\\personal_finance\\personal_finance\\cnf.txt",
+            "read_default_file": "C:\\Users\\zdign\\OneDrive\\Desktop\\Code\\personal_finance\\personal_finance\\cnf.txt",
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
             "init_command": "SET default_storage_engine=INNODB",
         },
