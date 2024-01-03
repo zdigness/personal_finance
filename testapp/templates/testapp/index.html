@@ -1,199 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		{% extends '../base/base.html' %} 
+		{% extends '../base/base.html' %}
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 	</head>
 	<body>
-		{% block content %}
-
-		{% if user.is_authenticated %}
-
+		{% block content %} {% if user.is_authenticated %}
 		<div class="spending">
-		{% if spending_categories_list %}
-		<div class="category-list">
-			<div class="category-heading"><h1>Your Spending</h1></div>
-			<div class="category-sorting">
-				<h2 class="needs-border">Categoy</h2>
-				<h2 class="needs-border">Budget</h2>
-				<h2 class="needs-border">Spent</h2>
-				<h2>Remaining</h2>
-			</div>
-			{% for category in spending_categories_list %}
-				<div class="category"><h2>{{ category.spending_category }}</h2>
-				<h2 id="current">${{ category.monthly_budget }}</h2>
-				<h2 id="spent">${{ category.current_spending }}</h2>
-				<h2 id="result"></h2>
+			<div class="category-list">
+				<div class="category-heading">
+					<h1>Your Spending</h1>
 				</div>
-			{% endfor %}
-			<script>
-				calculate();
-			</script>
+				{% if spending_categories_list %}
+				<div class="category-sorting">
+					<h2 class="needs-border">Categoy</h2>
+					<h2 class="needs-border">Budget</h2>
+					<h2 class="needs-border">Spent</h2>
+					<h2>Remaining</h2>
+				</div>
+				{% for category in spending_categories_list %}
+				<div class="category">
+					<h2>{{ category.spending_category }}</h2>
+					<h2 id="current">${{ category.monthly_budget }}</h2>
+					<h2 id="spent">${{ category.current_spending }}</h2>
+					<h2 id="result"></h2>
+				</div>
+				{% endfor %}
+				<script>
+					calculate();
+				</script>
+				<div class="button-div">
+					<button
+						type="button"
+						class="btn btn-primary"
+						data-bs-toggle="modal"
+						data-bs-target="#payModal"
+						data-bs-whatever="@mdo"
+					>
+						Log
+					</button>
+					<button
+						type="button"
+						class="btn btn-success"
+						data-bs-toggle="modal"
+						data-bs-target="#createModal"
+						data-bs-whatever="@adg"
+					>
+						Create
+					</button>
+				</div>
+			</div>
+			<div
+				class="modal fade"
+				id="payModal"
+				tabindex="-1"
+				aria-labelledby="exampleModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel">
+								Log a payment
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category_spent" class="col-form-label">
+										Category:
+									</label>
+									<select id="category_chosen" name="category">
+										{% for category in spending_categories_list %}
+										<option value="{{ category.spending_category }}">
+											{{ category.spending_category }}
+										</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Amount Spent:
+									</label>
+									<textarea
+										class="form-control"
+										id="message-text"
+										name="amount"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<input
+										type="submit"
+										class="btn btn-primary"
+										name="action"
+										value="Submit"
+									/>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div
+				class="modal fade"
+				id="createModal"
+				tabindex="-1"
+				aria-labelledby="createModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel2">
+								New spending category
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category-name" class="col-form-label">
+										Category Name:
+									</label>
+									<input
+										type="text"
+										class="form-control"
+										name="category-name"
+									/>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Monthly Budget:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="monthly-budget"
+									></textarea>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Current Spending:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="current-spending"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<input
+										type="submit"
+										class="btn btn-primary"
+										name="action"
+										value="Create"
+									/>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% else %}
 			<div class="button-div">
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#payModal" data-bs-whatever="@mdo">Log</button>
-				<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal" data-bs-whatever="@adg">Create</button>
+				<button
+					type="button"
+					class="btn btn-success"
+					data-bs-toggle="modal"
+					data-bs-target="#createModal"
+					data-bs-whatever="@adg"
+				>
+					Create
+				</button>
 			</div>
-		</div>
-		<div>
-
-		<div>
-		<div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-			  <div class="modal-content">
-				<div class="modal-header">
-				  <h1 class="modal-title fs-5" id="exampleModalLabel">Log a payment</h1>
-				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-				  <form action="" method="post">
-					{% csrf_token %}
-					<div class="mb-3">
-					  <label for="category_spent" class="col-form-label">Category:</label>
-					  <select  id="category_chosen" name="category">
-						{% for category in spending_categories_list %}
-						<option value="{{ category.spending_category }}">{{ category.spending_category }}</option>
-						{% endfor %}
-					  </select>
+			<div
+				class="modal fade"
+				id="createModal"
+				tabindex="-1"
+				aria-labelledby="createModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel2">
+								New message
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category-name" class="col-form-label">
+										Category Name:
+									</label>
+									<input
+										type="text"
+										class="form-control"
+										name="category-name"
+									/>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Monthly Budget:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="monthly-budget"
+									></textarea>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Current Spending:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="current-spending"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<input
+										type="submit"
+										class="btn btn-primary"
+										name="action"
+										value="Create"
+									/>
+								</div>
+							</form>
+						</div>
 					</div>
-					<div class="mb-3">
-					  <label for="message-text" class="col-form-label">Amount Spent:</label>
-					  <textarea class="form-control" id="message-text" name="amount"></textarea>
-					</div>
-					<div class="modal-footer">
-						<input type="submit" class="btn btn-primary" name="action" value="Submit">
-					</div>
-				</form>
 				</div>
-			  </div>
 			</div>
-		  </div>
-		</div>
-
-		<div>
-		<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-			<div class="modal-content">
-			<div class="modal-header">
-				<h1 class="modal-title fs-5" id="exampleModalLabel2">New message</h1>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<form action="" method="post">
-					{% csrf_token %}
-				<div class="mb-3">
-					<label for="category-name" class="col-form-label">Category Name:</label>
-					<input type="text" class="form-control" name="category-name">
-				</div>
-				<div class="mb-3">
-					<label for="message-text" class="col-form-label">Monthly Budget:</label>
-					<textarea type="text" class="form-control" name="monthly-budget"></textarea>
-				</div>
-				<div class="mb-3">
-					<label for="message-text" class="col-form-label">Current Spending:</label>
-					<textarea type="text" class="form-control" name="current-spending"></textarea>
-				</div>
-				<div class="modal-footer">
-					<input type="submit" class="btn btn-primary" name="action" value="Create">
-				</div>
-				  </form>
-				</div>
-			  </div>
-			</div>
-		  </div>
-		</div>
-		</div>
-
-
-		{% else %}
-		<p>No spending categories created.</p>
-		{% endif %}
+			{% endif %}
 		</div>
 
 		<div class="savings-debts">
-
-		<div class="savings-list">
-			<div class="savings-heading">
-			<h1>Your Savings</h1>
-			</div>
+			<div class="savings-list">
+				<div class="savings-heading">
+					<h1>Your Savings</h1>
+				</div>
 			{% if savings %}
-			<div class="saving-list">
-				<div class="savings-sorting">
-					<h2 class="needs-border">Account</h2>
-					<h2>Amount</h2>
-				</div>
-			{% for saving in savings %}
-			<div class="saving-item">
-				<div>
-					<h2>{{ saving.savings_account }}</h2>
-				</div>
-				<div>
-					<h2>${{ saving.savings_amount }}</h2>
-				</div>
-			{% endfor %}
-			{% else %}
-			<p>No savings created.</p>
-			{% endif %}
-			</div>
-			</div>
-		</div>
-
-		<div class="debts-list">
-			<div class="debts-heading">
-			<h1>Your Debts</h1>
-			</div>
-			{% if debt %}
-			<div class="debt-list">
-				<div class="debt-sorting">
-					<h2 class="needs-border">Debt</h2>
-					<h2>Amount</h2>
-				</div>
-			{% for debt in debt %}
-			<div class="debt-item">
-				<div>
-					<h2>{{ debt.debt_account }}</h2>
-				</div>
-				<div>
-					<h2>${{ debt.debt_amount }}</h2>
-				</div>
-			</div>
-			{% endfor %}
-
-			{% else %}
-			<p>No debts created.</p>
-			<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#debtModal" data-bs-whatever="@adg">Create</button>
-			{% endif %}
-			</div>
-
-		</div>
-
-		<div class="modal fade" id="debtModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-			  <div class="modal-content">
-				<div class="modal-header">
-				  <h1 class="modal-title fs-5" id="exampleModalLabel">Log a debt</h1>
-				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-				  <form action="" method="post">
-					{% csrf_token %}
-					<div class="mb-3">
-					  <label for="message-text" class="col-form-label">Debt account:</label>
-					  <textarea class="form-control" id="message-text" name="debt-account"></textarea>
+				<div class="saving-list">
+					<div class="savings-sorting">
+						<h2 class="needs-border">Account</h2>
+						<h2>Amount</h2>
 					</div>
-					<div class="mb-3">
-						<label for="message-text" class="col-form-label">Debt amount:</label>
-						<textarea class="form-control" id="message-text" name="debt-amount"></textarea>
-					  </div>
-					<div class="modal-footer">
-						<input type="submit" class="btn btn-primary" name="action" value="Submit Debt">
+					{% for saving in savings %}
+					<div class="saving-item">
+						<div>
+							<h2>{{ saving.savings_account }}</h2>
+						</div>
+						<div>
+							<h2>${{ saving.savings_amount }}</h2>
+						</div>
 					</div>
-				</form>
+					{% endfor %}
+					<div class="button-div">
+						<button
+							type="button"
+							class="btn btn-success"
+							data-bs-toggle="modal"
+							data-bs-target="#savingsModal"
+							data-bs-whatever="@adg"
+						>
+							Create
+						</button>
+					</div>
 				</div>
-			  </div>
 			</div>
-		  </div>
+			{% else %}
+				<div class="button-div">
+					<button
+						type="button"
+						class="btn btn-success"
+						data-bs-toggle="modal"
+						data-bs-target="#savingsModal"
+						data-bs-whatever="@adg"
+					>
+						Create
+					</button>
+				</div>
+			</div>
+			{% endif %}
+
+			<div class="debts-list">
+				<div class="debts-heading">
+					<h1>Your Debts</h1>
+				</div>
+				{% if debt %}
+				<div class="debt-list">
+					<div class="debt-sorting">
+						<h2 class="needs-border">Debt</h2>
+						<h2>Amount</h2>
+					</div>
+					{% for debt in debt %}
+					<div class="debt-item">
+						<div>
+							<h2>{{ debt.debt_account }}</h2>
+						</div>
+						<div>
+							<h2>${{ debt.debt_amount }}</h2>
+						</div>
+					</div>
+					<div class="button-div">
+						<button
+							type="button"
+							class="btn btn-success"
+							data-bs-toggle="modal"
+							data-bs-target="#debtModal"
+							data-bs-whatever="@adg"
+						>
+							Create
+						</button>
+					</div>
+					{% endfor %} {% else %}
+					<div class="button-div">
+						<button
+							type="button"
+							class="btn btn-success"
+							data-bs-toggle="modal"
+							data-bs-target="#debtModal"
+							data-bs-whatever="@adg"
+						>
+							Create
+						</button>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+
+			<div
+				class="modal fade"
+				id="savingsModal"
+				tabindex="-1"
+				aria-labelledby="exampleModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel">
+								Create a savings account
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category_spent" class="col-form-label">
+										Account Name:
+									</label>
+									<textarea
+										class="form-control"
+										id="message-text"
+										name="account"
+									></textarea>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Current Savings:
+									</label>
+									<textarea
+										class="form-control"
+										id="message-text"
+										name="saved"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<input
+										type="submit"
+										class="btn btn-primary"
+										name="action"
+										value="Submit Debt"
+									/>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="modal fade"
+				id="debtModal"
+				tabindex="-1"
+				aria-labelledby="exampleModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel">
+								Log a debt
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label"
+										>Debt account:</label
+									>
+									<textarea
+										class="form-control"
+										id="message-text"
+										name="debt-account"
+									></textarea>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label"
+										>Debt amount:</label
+									>
+									<textarea
+										class="form-control"
+										id="message-text"
+										name="debt-amount"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<input
+										type="submit"
+										class="btn btn-primary"
+										name="action"
+										value="Submit Debt"
+									/>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		{% else %}
@@ -202,20 +473,34 @@
 				{% csrf_token %}
 				<form>
 					<div class="mb-3">
-					  <label class="form-label">Username</label>
-					  <input type="username" class="form-control" name="username" placeholder="username" required>
+						<label class="form-label">Username</label>
+						<input
+							type="username"
+							class="form-control"
+							name="username"
+							placeholder="username"
+							required
+						/>
 					</div>
 					<div class="mb-3">
-					  <label for="exampleInputPassword1" class="form-label">Password</label>
-					  <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="password" required>
+						<label for="exampleInputPassword1" class="form-label"
+							>Password</label
+						>
+						<input
+							type="password"
+							class="form-control"
+							id="exampleInputPassword1"
+							name="password"
+							placeholder="password"
+							required
+						/>
 					</div>
 					<div class="login-submit">
-					<button type="submit" class="btn btn-primary">Login</button>
+						<button type="submit" class="btn btn-primary">Login</button>
 					</div>
-				  </form>
+				</form>
 			</form>
-			</div>
-		{% endif %}
-		{% endblock %}
+		</div>
+		{% endif %} {% endblock %}
 	</body>
 </html>
