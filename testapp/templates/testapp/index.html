@@ -97,13 +97,15 @@
 										name="amount"
 									></textarea>
 								</div>
-								<div class="modal-footer">
-									<input
+								<div class="modal-footer" name="log_spending">
+									<button
 										type="submit"
 										class="btn btn-primary"
 										name="action"
-										value="Submit"
-									/>
+										value="log_spending"
+									>
+										Log
+									</button>
 								</div>
 							</form>
 						</div>
@@ -164,12 +166,14 @@
 									></textarea>
 								</div>
 								<div class="modal-footer">
-									<input
+									<button
 										type="submit"
 										class="btn btn-primary"
 										name="action"
-										value="Create"
-									/>
+										value="create_spending"
+									>
+										Create
+									</button>
 								</div>
 							</form>
 						</div>
@@ -199,7 +203,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h1 class="modal-title fs-5" id="exampleModalLabel2">
-								New message
+								New Spending Category
 							</h1>
 							<button
 								type="button"
@@ -242,12 +246,14 @@
 									></textarea>
 								</div>
 								<div class="modal-footer">
-									<input
+									<button
 										type="submit"
 										class="btn btn-primary"
 										name="action"
-										value="Create"
-									/>
+										value="create_spending"
+									>
+										Create
+									</button>
 								</div>
 							</form>
 						</div>
@@ -280,6 +286,15 @@
 					{% endfor %}
 					<div class="button-div">
 						<button
+						type="button"
+						class="btn btn-success"
+						data-bs-toggle="modal"
+						data-bs-target="#logSavingsModal"
+						data-bs-whatever="@adg"
+						>
+							Log
+						</button>
+						<button
 							type="button"
 							class="btn btn-success"
 							data-bs-toggle="modal"
@@ -305,7 +320,6 @@
 				</div>
 			</div>
 			{% endif %}
-
 			<div class="debts-list">
 				<div class="debts-heading">
 					<h1>Your Debts</h1>
@@ -326,6 +340,15 @@
 						</div>
 					</div>
 					<div class="button-div">
+						<button
+						type="button"
+						class="btn btn-success"
+						data-bs-toggle="modal"
+						data-bs-target="#updateDebtModal"
+						data-bs-whatever="@adg"
+						>
+							Update
+						</button>
 						<button
 							type="button"
 							class="btn btn-success"
@@ -396,12 +419,14 @@
 									></textarea>
 								</div>
 								<div class="modal-footer">
-									<input
+									<button
 										type="submit"
 										class="btn btn-primary"
 										name="action"
-										value="Submit Debt"
-									/>
+										value="create_savings"
+									>
+										Create
+									</button>
 								</div>
 							</form>
 						</div>
@@ -453,12 +478,136 @@
 									></textarea>
 								</div>
 								<div class="modal-footer">
-									<input
+									<button
 										type="submit"
 										class="btn btn-primary"
 										name="action"
-										value="Submit Debt"
-									/>
+										value="create_debt"
+									>
+										Create
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div
+			class="modal fade"
+			id="logSavingsModal"
+			tabindex="-1"
+			aria-labelledby="exampleModalLabel"
+			aria-hidden="true"
+			>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">
+							Update Savings
+						</h1>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div class="modal-body">
+						<form action="" method="post">
+							{% csrf_token %}
+							<div class="mb-3">
+								<label for="category_spent" class="col-form-label">
+									Category:
+								</label>
+								<select id="category_chosen" name="category">
+									{% for saving in savings %}
+									<option value="{{ saving.savings_account }}">
+										{{ saving.savings_account }}
+									</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="mb-3">
+								<label for="category_spent" class="col-form-label">
+									Amount Added:
+								</label>
+								<textarea
+									class="form-control"
+									id="message-text"
+									name="account"
+								></textarea>
+							</div>
+							<div class="modal-footer">
+								<button
+									type="submit"
+									class="btn btn-primary"
+									name="action"
+									value="log_savings"
+								>
+									Log
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+			<div
+				class="modal fade"
+				id="updateDebtModal"
+				tabindex="-1"
+				aria-labelledby="exampleModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel">
+								Update Debts
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category_spent" class="col-form-label">
+										Category:
+									</label>
+									<select id="category_chosen" name="category">
+										{% for debts in debt %}
+										<option value="{{ debts.debt_account }}">
+											{{ debts.debt_account }}
+										</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="category_spent" class="col-form-label">
+										New Amount:
+									</label>
+									<textarea
+										class="form-control"
+										id="message-text"
+										name="account"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="submit"
+										class="btn btn-primary"
+										name="action"
+										value="log_savings"
+									>
+										Log
+									</button>
 								</div>
 							</form>
 						</div>

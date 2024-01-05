@@ -32,7 +32,7 @@ class IndexView(generic.ListView):
     def post(self, request):
         if request.user.is_authenticated:
             if request.method == "POST":
-                if request.POST["action"] == "Submit":
+                if request.POST["action"] == "log_spending":
                     amount = request.POST["amount"]
                     category = request.POST["category"]
                     spending_category = Spending_Category.objects.get(
@@ -43,7 +43,7 @@ class IndexView(generic.ListView):
                     ) + float(amount)
                     spending_category.save()
                     return redirect(reverse("testapp:index"))
-                if request.POST["action"] == "Create":
+                if request.POST["action"] == "create_spending":
                     category = request.POST["category-name"]
                     budget = request.POST["monthly-budget"]
                     current = request.POST["current-spending"]
