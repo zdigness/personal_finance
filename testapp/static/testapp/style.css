@@ -10,19 +10,18 @@ body {
     padding-right: 10%;
 }
 
-.category-list,
-.debt-list {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
 .savings-debts {
-    padding-right: 12%;
-    padding-left: 12%;
     display: flex;
     flex-direction: row;
-    width: 100%;
+    padding-left: 12%;
+    padding-right: 12%;
+}
+
+.savings-container,
+.debts-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
 }
 
 .debt-item,
@@ -52,6 +51,7 @@ body {
     margin: 20px;
     border-style: solid;
     border-radius: 10px;
+    height: min-content;
     width: 100%;
 }
 
@@ -62,6 +62,7 @@ body {
     border-style: solid;
     border-radius: 10px;
     height: min-content;
+    width: 100%;
 }
 
 .category-heading,

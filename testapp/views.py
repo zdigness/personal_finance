@@ -54,13 +54,37 @@ class IndexView(generic.ListView):
                         current_spending=current,
                     )
                     return redirect(reverse("testapp:index"))
-                if request.POST["action"] == "Submit Debt":
-                    amount = request.POST["debt-amount"]
-                    account = request.POST["debt-account"]
+                if request.POST["action"] == "create_debt":
+                    amount = request.POST["amount"]
+                    account = request.POST["account"]
                     Debt.objects.create(
                         debt_account=account,
                         debt_amount=amount,
                     )
+                    return redirect(reverse("testapp:index"))
+                if request.POST["action"] == "log_debt":
+                    amount = request.POST["amount"]
+                    account = request.POST["account"]
+                    debt_account = Debt.objects.get(debt_account=account)
+                    debt_account.debt_amount = float(amount)
+                    debt_account.save()
+                    return redirect(reverse("testapp:index"))
+                if request.POST["action"] == "create_savings":
+                    amount = request.POST["amount"]
+                    account = request.POST["account"]
+                    Savings.objects.create(
+                        savings_account=account,
+                        savings_amount=amount,
+                    )
+                    return redirect(reverse("testapp:index"))
+                if request.POST["action"] == "log_savings":
+                    amount = request.POST["amount"]
+                    account = request.POST["account"]
+                    savings_account = Savings.objects.get(savings_account=account)
+                    savings_account.savings_amount = float(
+                        savings_account.savings_amount
+                    ) + float(amount)
+                    savings_account.save()
                     return redirect(reverse("testapp:index"))
         else:
             username = request.POST["username"]

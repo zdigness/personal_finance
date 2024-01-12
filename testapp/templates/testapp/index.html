@@ -268,42 +268,40 @@
 				<div class="savings-heading">
 					<h1>Your Savings</h1>
 				</div>
-			{% if savings %}
-				<div class="saving-list">
-					<div class="savings-sorting">
-						<h2 class="needs-border">Account</h2>
-						<h2>Amount</h2>
-					</div>
-					{% for saving in savings %}
+				{% if savings %}
+				<div class="savings-sorting">
+					<h2 class="needs-border">Account</h2>
+					<h2>Amount</h2>
+				</div>
+				<div class="savings-container">
+				{% for saving in savings %}
 					<div class="saving-item">
-						<div>
-							<h2>{{ saving.savings_account }}</h2>
-						</div>
-						<div>
-							<h2>${{ saving.savings_amount }}</h2>
-						</div>
+						<h2>{{ saving.savings_account }}</h2>
 					</div>
-					{% endfor %}
-					<div class="button-div">
-						<button
+					<div class="saving-item">
+						<h2>${{ saving.savings_amount }}</h2>
+					</div>
+				{% endfor %}
+				</div>
+				<div class="button-div">
+					<button
+					type="button"
+					class="btn btn-primary"
+					data-bs-toggle="modal"
+					data-bs-target="#logSavingsModal"
+					data-bs-whatever="@adg"
+					>
+						Log
+					</button>
+					<button
 						type="button"
 						class="btn btn-success"
 						data-bs-toggle="modal"
-						data-bs-target="#logSavingsModal"
+						data-bs-target="#createSavingsModal"
 						data-bs-whatever="@adg"
-						>
-							Log
-						</button>
-						<button
-							type="button"
-							class="btn btn-success"
-							data-bs-toggle="modal"
-							data-bs-target="#savingsModal"
-							data-bs-whatever="@adg"
-						>
-							Create
-						</button>
-					</div>
+					>
+						Create
+					</button>
 				</div>
 			</div>
 			{% else %}
@@ -312,12 +310,13 @@
 						type="button"
 						class="btn btn-success"
 						data-bs-toggle="modal"
-						data-bs-target="#savingsModal"
+						data-bs-target="#createSavingsModal"
 						data-bs-whatever="@adg"
 					>
 						Create
 					</button>
 				</div>
+			</div>
 			</div>
 			{% endif %}
 			<div class="debts-list">
@@ -325,59 +324,58 @@
 					<h1>Your Debts</h1>
 				</div>
 				{% if debt %}
-				<div class="debt-list">
-					<div class="debt-sorting">
-						<h2 class="needs-border">Debt</h2>
-						<h2>Amount</h2>
-					</div>
-					{% for debt in debt %}
+				<div class="debt-sorting">
+					<h2 class="needs-border">Debt</h2>
+					<h2>Amount</h2>
+				</div>
+				<div class="debts-container">
+				{% for debt in debt %}
 					<div class="debt-item">
-						<div>
-							<h2>{{ debt.debt_account }}</h2>
-						</div>
-						<div>
-							<h2>${{ debt.debt_amount }}</h2>
-						</div>
+						<h2>{{ debt.debt_account }}</h2>
 					</div>
-					<div class="button-div">
-						<button
+					<div class="debt-item">
+						<h2>${{ debt.debt_amount }}</h2>
+					</div>
+				{% endfor %} 
+				</div>
+				<div class="button-div">
+					<button
+					type="button"
+					class="btn btn-primary"
+					data-bs-toggle="modal"
+					data-bs-target="#updateDebtModal"
+					data-bs-whatever="@adg"
+					>
+						Log
+					</button>
+					<button
 						type="button"
 						class="btn btn-success"
 						data-bs-toggle="modal"
-						data-bs-target="#updateDebtModal"
+						data-bs-target="#createDebtModal"
 						data-bs-whatever="@adg"
-						>
-							Update
-						</button>
-						<button
-							type="button"
-							class="btn btn-success"
-							data-bs-toggle="modal"
-							data-bs-target="#debtModal"
-							data-bs-whatever="@adg"
-						>
-							Create
-						</button>
-					</div>
-					{% endfor %} {% else %}
-					<div class="button-div">
-						<button
-							type="button"
-							class="btn btn-success"
-							data-bs-toggle="modal"
-							data-bs-target="#debtModal"
-							data-bs-whatever="@adg"
-						>
-							Create
-						</button>
-					</div>
-					{% endif %}
+					>
+						Create
+					</button>
 				</div>
+				{% else %}
+				<div class="button-div">
+					<button
+						type="button"
+						class="btn btn-success"
+						data-bs-toggle="modal"
+						data-bs-target="#debtModal"
+						data-bs-whatever="@adg"
+					>
+						Create
+					</button>
+				</div>
+				{% endif %}
 			</div>
 
 			<div
 				class="modal fade"
-				id="savingsModal"
+				id="createSavingsModal"
 				tabindex="-1"
 				aria-labelledby="exampleModalLabel"
 				aria-hidden="true"
@@ -415,7 +413,7 @@
 									<textarea
 										class="form-control"
 										id="message-text"
-										name="saved"
+										name="amount"
 									></textarea>
 								</div>
 								<div class="modal-footer">
@@ -436,7 +434,7 @@
 
 			<div
 				class="modal fade"
-				id="debtModal"
+				id="createDebtModal"
 				tabindex="-1"
 				aria-labelledby="exampleModalLabel"
 				aria-hidden="true"
@@ -464,7 +462,7 @@
 									<textarea
 										class="form-control"
 										id="message-text"
-										name="debt-account"
+										name="account"
 									></textarea>
 								</div>
 								<div class="mb-3">
@@ -474,7 +472,7 @@
 									<textarea
 										class="form-control"
 										id="message-text"
-										name="debt-amount"
+										name="amount"
 									></textarea>
 								</div>
 								<div class="modal-footer">
@@ -520,7 +518,7 @@
 								<label for="category_spent" class="col-form-label">
 									Category:
 								</label>
-								<select id="category_chosen" name="category">
+								<select id="message-text" name="account">
 									{% for saving in savings %}
 									<option value="{{ saving.savings_account }}">
 										{{ saving.savings_account }}
@@ -535,7 +533,7 @@
 								<textarea
 									class="form-control"
 									id="message-text"
-									name="account"
+									name="amount"
 								></textarea>
 							</div>
 							<div class="modal-footer">
@@ -578,10 +576,10 @@
 							<form action="" method="post">
 								{% csrf_token %}
 								<div class="mb-3">
-									<label for="category_spent" class="col-form-label">
+									<label for="account" class="col-form-label">
 										Category:
 									</label>
-									<select id="category_chosen" name="category">
+									<select id="category_chosen" name="account">
 										{% for debts in debt %}
 										<option value="{{ debts.debt_account }}">
 											{{ debts.debt_account }}
@@ -590,13 +588,13 @@
 									</select>
 								</div>
 								<div class="mb-3">
-									<label for="category_spent" class="col-form-label">
+									<label for="amount" class="col-form-label">
 										New Amount:
 									</label>
 									<textarea
 										class="form-control"
 										id="message-text"
-										name="account"
+										name="amount"
 									></textarea>
 								</div>
 								<div class="modal-footer">
@@ -604,7 +602,7 @@
 										type="submit"
 										class="btn btn-primary"
 										name="action"
-										value="log_savings"
+										value="log_debt"
 									>
 										Log
 									</button>
