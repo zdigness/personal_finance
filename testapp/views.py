@@ -1,3 +1,4 @@
+from typing import Any
 from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
@@ -11,6 +12,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
 from .forms import SignUpForm
+
+import matplotlib.pyplot as plt
+from io import BytesIO
+import base64
 
 
 class IndexView(generic.ListView):
@@ -97,6 +102,29 @@ class IndexView(generic.ListView):
             else:
                 messages.error(request, "Invalid username or password")
                 return redirect(reverse("testapp:index"))
+
+
+def plot_view(request):
+    labels = []
+    data = []
+    queryset = Spending_Category.objects.filter(user_id=request.user.id)
+    for spending_category in queryset:
+        labels.append(spending_category.spending_category)
+        data.append(spending_category.current_spending)
+    plt.switch_backend("AGG")
+    plt.figure(figsize=(6, 6))
+    plt.pie(data, labels=labels)
+    plt.title("Spending")
+    plt.tight_layout()
+    buffer = BytesIO()
+    plt.savefig(buffer, format="png")
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    graphic = base64.b64encode(image_png)
+    graphic = graphic.decode("utf-8")
+    buffer.close()
+
+    return render(request, "testapp/spending.html", {"graphic": graphic})
 
 
 def logout_user(request):
