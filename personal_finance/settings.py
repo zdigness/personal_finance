@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from configparser import ConfigParser
+
+config = ConfigParser()
+config.read("cnf.txt")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,7 +82,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "OPTIONS": {
-            "read_default_file": "C:\\Users\\zdign\\OneDrive\\Desktop\\Code\\personal_finance\\personal_finance\\cnf.txt",
+            "read_default_file": "C:/Users/zdign/Desktop/Code/personal_finance/personal_finance/cnf.txt",
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
             "init_command": "SET default_storage_engine=INNODB",
         },
