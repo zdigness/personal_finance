@@ -17,6 +17,9 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 
+from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
+
 
 class IndexView(generic.ListView):
     template_name = "testapp/index.html"
@@ -104,27 +107,32 @@ class IndexView(generic.ListView):
                 return redirect(reverse("testapp:index"))
 
 
-def plot_view(request):
-    labels = []
-    data = []
-    queryset = Spending_Category.objects.filter(user_id=request.user.id)
-    for spending_category in queryset:
-        labels.append(spending_category.spending_category)
-        data.append(spending_category.current_spending)
-    plt.switch_backend("AGG")
-    plt.figure(figsize=(6, 6))
-    plt.pie(data, labels=labels)
-    plt.title("Spending")
-    plt.tight_layout()
-    buffer = BytesIO()
-    plt.savefig(buffer, format="png")
-    buffer.seek(0)
-    image_png = buffer.getvalue()
-    graphic = base64.b64encode(image_png)
-    graphic = graphic.decode("utf-8")
-    buffer.close()
+class AnalyticView(generic.ListView):
+    template_name = "testapp/spending.html"
+    context_object_name = "spending"
 
-    return render(request, "testapp/spending.html", {"graphic": graphic})
+    def get_queryset(self):
+        return Spending_Category.objects.filter(user_id=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(AnalyticView, self).get_context_data(**kwargs)
+        context["graphic"] = get_chart(self.request.user.id)
+        return context
+
+    def post(self, request):
+        if request.user.is_authenticated:
+            if request.method == "POST":
+                user_input = request.POST["user_input"]
+                bot_response = get_response(user_input)
+                return render(
+                    request,
+                    "testapp/spending.html",
+                    {"bot_response": bot_response, "graphic": graphic},
+                )
+            else:
+                return render(request, "testapp/spending.html", {"graphic": graphic})
+        else:
+            return redirect(reverse("testapp:index"))
 
 
 def logout_user(request):
@@ -149,3 +157,32 @@ def register_user(request):
     else:
         form = SignUpForm()
         return render(request, "testapp/register.html", {"form": form})
+
+
+def get_response(usrText: Any) -> Any:
+    bot = ChatBot("Bot")
+    trainer = ChatterBotCorpusTrainer(bot)
+    trainer.train("chatterbot.corpus.english")
+    return bot.get_response(usrText)
+
+
+def get_chart(user_id: int):
+    labels = []
+    data = []
+    queryset = Spending_Category.objects.filter(user_id=user_id)
+    for spending_category in queryset:
+        labels.append(spending_category.spending_category)
+        data.append(spending_category.current_spending)
+    plt.switch_backend("AGG")
+    plt.figure(figsize=(6, 6))
+    plt.pie(data, labels=labels)
+    plt.title("Spending")
+    plt.tight_layout()
+    buffer = BytesIO()
+    plt.savefig(buffer, format="png")
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    graphic = base64.b64encode(image_png)
+    graphic = graphic.decode("utf-8")
+    buffer.close()
+    return graphic
