@@ -1,3 +1,4 @@
 /.vscode
 /personal_finance/cnf.txt
 /node_modules
+/.env

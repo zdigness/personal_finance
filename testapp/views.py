@@ -22,7 +22,9 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 
 from openai import OpenAI
 
-client = OpenAI(api_key="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")
+from decouple import config
+
+client = OpenAI(api_key=config("OPENAI_API_KEY"))
 bot_messages = []
 
 
