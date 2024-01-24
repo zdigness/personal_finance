@@ -20,6 +20,11 @@ import base64
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 
+from openai import OpenAI
+
+client = OpenAI(api_key="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")
+bot_messages = []
+
 
 class IndexView(generic.ListView):
     template_name = "testapp/index.html"
@@ -123,14 +128,19 @@ class AnalyticView(generic.ListView):
         if request.user.is_authenticated:
             if request.method == "POST":
                 user_input = request.POST["user_input"]
-                bot_response = get_response(user_input)
+                bot_response = get_response(str(user_input))
+                bot_messages.append(bot_response)
                 return render(
                     request,
                     "testapp/spending.html",
-                    {"bot_response": bot_response, "graphic": graphic},
+                    {
+                        "user_input": user_input,
+                        "bot_messages": bot_messages,
+                        "graphic": get_chart(self.request.user.id),
+                    },
                 )
             else:
-                return render(request, "testapp/spending.html", {"graphic": graphic})
+                return render(request, "testapp/spending.html")
         else:
             return redirect(reverse("testapp:index"))
 
@@ -159,11 +169,13 @@ def register_user(request):
         return render(request, "testapp/register.html", {"form": form})
 
 
-def get_response(usrText: Any) -> Any:
-    bot = ChatBot("Bot")
-    trainer = ChatterBotCorpusTrainer(bot)
-    trainer.train("chatterbot.corpus.english")
-    return bot.get_response(usrText)
+def get_response(usrText):
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": usrText}],
+        max_tokens=100,
+    )
+    return response.choices[0].message.content.strip()
 
 
 def get_chart(user_id: int):

@@ -4,11 +4,39 @@
 		{% extends '../base/base.html' %}
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Plots</title>
+		<title>Document</title>
 	</head>
 	<body>
 		{% block content %}
-		<img src="data:image/png;base64, {{ graphic }}" alt="Matplotlib Plot" />
+		<div class="chatbot-container">
+			<div class="chatbot-header">
+				<h1>Chatbot</h1>
+			</div>
+			<div class="chatbot-subheader">
+				<p>Any questions about your finances?</p>
+			</div>
+			<div class="chatbot-body">
+				{% for bot_message in bot_messages %}
+				<div class="chatbot-message">
+					<p>{{ bot_message }}</p>
+				</div>
+				{% endfor %}
+			</div>
+			<div class="chatbot-input">
+				<form action="" method="post">
+					{% csrf_token %}
+					<input
+						type="text"
+						name="user_input"
+						placeholder="Type your message..."
+					/>
+					<input type="submit" value="Ask" />
+				</form>
+			</div>
+		</div>
+		<div id="piechart">
+			<img src="data:image/png;base64, {{ graphic }}" alt="Matplotlib Plot" />
+		</div>
 		{% endblock %}
 	</body>
 </html>
