@@ -12,7 +12,11 @@ from django.contrib import messages
 
 from .forms import SignUpForm
 
+# plotting libraries
 import matplotlib.pyplot as plt
+import seaborn as sns
+
+
 from io import BytesIO
 import base64
 
@@ -186,7 +190,6 @@ def get_chart(user_id: int):
     plt.switch_backend("AGG")
     plt.figure(figsize=(6, 6))
     plt.pie(data, labels=labels)
-    plt.title("Spending")
     plt.tight_layout()
     buffer = BytesIO()
     plt.savefig(buffer, format="png")

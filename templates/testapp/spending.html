@@ -34,8 +34,33 @@
 				</form>
 			</div>
 		</div>
-		<div id="piechart">
-			<img src="data:image/png;base64, {{ graphic }}" alt="Matplotlib Plot" />
+		<div class="chart-container">
+			<div class="carousel-track">
+				<div class="carousel-slide">
+					<div class="chart-header">
+						<h1>Monthly Spending</h1>
+					</div>
+					<div class="chart-body">
+						<img
+							src="data:image/png;base64, {{ graphic }}"
+							alt="Matplotlib Plot"
+						/>
+					</div>
+				</div>
+				<div class="carousel-slide">
+					<div class="chart-header">
+						<h1>Chart</h1>
+					</div>
+					<div class="chart-body">
+						<img
+							src="data:image/png;base64, {{ asdf }}"
+							alt="Matplotlib Plot"
+						/>
+					</div>
+				</div>
+			</div>
+			<button class="carousel-prev">&lt;</button>
+			<button class="carousel-next">&gt;</button>
 		</div>
 		{% endblock %}
 	</body>
