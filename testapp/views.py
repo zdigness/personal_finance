@@ -1,4 +1,3 @@
-from typing import Any
 from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
@@ -16,9 +15,6 @@ from .forms import SignUpForm
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
-
-from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
 
 from openai import OpenAI
 

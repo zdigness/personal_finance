@@ -56,7 +56,9 @@ ROOT_URLCONF = "personal_finance.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            os.path.join(BASE_DIR, "templates"),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -78,8 +80,12 @@ WSGI_APPLICATION = "personal_finance.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
+        "NAME": config("NAME"),
+        "USER": config("USER"),
+        "PASSWORD": config("PASSWORD"),
+        "HOST": config("HOST"),
+        "PORT": config("PORT"),
         "OPTIONS": {
-            "read_default_file": "C:/Users/zdign/Desktop/Code/personal_finance/personal_finance/cnf.txt",
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
             "init_command": "SET default_storage_engine=INNODB",
         },
