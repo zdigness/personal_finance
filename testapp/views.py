@@ -24,6 +24,8 @@ from openai import OpenAI
 
 from decouple import config
 
+from datetime import datetime, timedelta
+
 client = OpenAI(api_key=config("OPENAI_API_KEY"))
 bot_messages = []
 
@@ -56,6 +58,11 @@ class IndexView(generic.ListView):
                     spending_category.current_spending = float(
                         spending_category.current_spending
                     ) + float(amount)
+                    Spending.objects.create(
+                        user_id=request.user.id,
+                        spending_category_id=spending_category.id,
+                        spending_amount=amount,
+                    )
                     spending_category.save()
                     return redirect(reverse("testapp:index"))
                 if request.POST["action"] == "create_spending":
@@ -123,7 +130,8 @@ class AnalyticView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(AnalyticView, self).get_context_data(**kwargs)
-        context["graphic"] = get_chart(self.request.user.id)
+        context["piechart"] = get_chart(self.request.user.id)
+        context["barchart"] = get_bar_chart(self.request.user.id)
         return context
 
     def post(self, request):
@@ -138,7 +146,8 @@ class AnalyticView(generic.ListView):
                     {
                         "user_input": user_input,
                         "bot_messages": bot_messages,
-                        "graphic": get_chart(self.request.user.id),
+                        "pie-chart": get_chart(self.request.user.id),
+                        "bar-chart": get_bar_chart(self.request.user.id),
                     },
                 )
             else:
@@ -189,8 +198,13 @@ def get_chart(user_id: int):
         data.append(spending_category.current_spending)
     plt.switch_backend("AGG")
     plt.figure(figsize=(6, 6))
-    plt.pie(data, labels=labels)
+    plt.pie(data, labels=labels, autopct="%1.1f%%", startangle=90)
+    plt.gcf().set_facecolor("#17141d")
     plt.tight_layout()
+
+    for text in plt.gca().texts:
+        text.set_color("white")
+
     buffer = BytesIO()
     plt.savefig(buffer, format="png")
     buffer.seek(0)
@@ -199,3 +213,44 @@ def get_chart(user_id: int):
     graphic = graphic.decode("utf-8")
     buffer.close()
     return graphic
+
+
+def get_bar_chart(user_id: int):
+    # current date and date from 7 days ago
+    current_date_time = datetime.now()
+    start_date = current_date_time - timedelta(days=6)
+
+    # get all spending objects from the user for past 7 days
+    queryset = Spending.objects.filter(user_id=user_id, pub_date__gte=start_date)
+
+    # set labels as the past 7 days
+    labels = []
+    while start_date <= current_date_time:
+        labels.append(start_date.strftime("%m-%d"))
+        start_date += timedelta(days=1)
+
+    # set data as the spending amount for each day
+    data = [0] * 7
+    for spending in queryset:
+        index = labels.index(spending.pub_date.strftime("%m-%d"))
+        data[index] += spending.spending_amount
+
+    # plot the bar chart
+    plt.clf()
+    plt.figure(figsize=(6, 6))
+    plt.bar(labels, data)
+    plt.gcf().set_facecolor("#17141d")
+    plt.xlabel("Date", color="white")
+    plt.ylabel("Amount Spent", color="white")
+    plt.tick_params(axis="x", colors="white")
+    plt.tick_params(axis="y", colors="white")
+
+    # save the plot as a png
+    bff = BytesIO()
+    plt.savefig(bff, format="png")
+    bff.seek(0)
+    image_png = bff.getvalue()
+    barchart = base64.b64encode(image_png)
+    barchart = barchart.decode("utf-8")
+    bff.close()
+    return barchart

@@ -15,6 +15,7 @@ class Spending_Category(models.Model):
 
 
 class Spending(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="1")
     spending_category = models.ForeignKey(Spending_Category, on_delete=models.CASCADE)
     spending_amount = models.DecimalField(max_digits=10, decimal_places=2)
     pub_date = models.DateTimeField(auto_now_add=True)
@@ -24,6 +25,7 @@ class Spending(models.Model):
 
 
 class Income(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="1")
     income_amount = models.DecimalField(max_digits=10, decimal_places=2)
     pub_date = models.DateTimeField(auto_now_add=True)
 
@@ -52,6 +54,7 @@ class Debt(models.Model):
 
 
 class Debt_Payment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="1")
     debt = models.ForeignKey(Debt, on_delete=models.CASCADE)
     debt_payment_amount = models.DecimalField(max_digits=10, decimal_places=2)
     pub_date = models.DateTimeField(auto_now_add=True)

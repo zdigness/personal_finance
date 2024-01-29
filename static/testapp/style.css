@@ -1,6 +1,9 @@
-html,
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
 body {
-    background-color: white;
+    background-color: #17141d !important;
+    color: white !important;
+    font-family:'DM Mono', monospace !important;
 }
 
 .spending {
@@ -49,28 +52,33 @@ body {
     display: flex;
     flex-direction: column;
     margin: 20px;
-    border-style: solid;
-    border-radius: 10px;
+    border-radius: 16px;
     height: min-content;
     width: 100%;
+
+    background: #17141d;
+    box-shadow: 0rem 0 3rem #000;
 }
 
 .category-list {
     display: flex;
     flex-direction: column;
     margin: 20px;
-    border-style: solid;
-    border-radius: 10px;
+    border-radius: 16px;
     height: min-content;
     width: 100%;
+
+    background: #17141d;
+    box-shadow: 0rem 0 3rem #000;
 }
 
 .category-heading,
 .savings-heading,
 .debts-heading {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: row;
-    text-decoration: underline;
     text-underline-offset: 10px;
     text-decoration-thickness: 2px;
 }
@@ -250,8 +258,9 @@ body {
     max-width: 600px;
     margin: 50px auto;
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    background: #17141d;
+    box-shadow: 0rem 0 3rem #000;
     overflow: hidden;
 }
 
@@ -262,7 +271,6 @@ body {
     align-items: center;
     padding: 0px;
 
-    color: black;
     text-align: center;
 }
 
@@ -293,14 +301,41 @@ body {
 }
 
 .chart-container {
-    position: relative;
+    /* position: relative;
     width: 80%;
     margin: auto;
     overflow: hidden;
+    height: fit-content;
+    margin-bottom: 20px; */
 
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    overflow: hidden;
+    height: fit-content;
+    margin: 100px;
+    margin-left: 25%;
+    margin-right: 25%;
+    position: relative;
+
+    border-radius: 16px;
+    background: #17141d;
+    box-shadow: 0rem 0 3rem #000;
+}
+
+@media (max-width: 1260px) {
+    .chart-container {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+@media (max-width: 900px) {
+    .chart-container {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
 }
 
 .chart-header {
@@ -325,7 +360,7 @@ body {
 }
 
 .carousel-slide {
-    min-width: 100%;
+    min-width: 100%
 }
 
 .carousel-prev,
@@ -336,7 +371,7 @@ body {
     font-size: 24px;
     background: none;
     border: none;
-    color: black;
+    color: white;
     cursor: pointer;
     outline: none;
 }
