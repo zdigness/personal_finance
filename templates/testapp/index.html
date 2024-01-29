@@ -7,11 +7,25 @@
 		<title>Document</title>
 	</head>
 	<body>
+		{% load static %}
 		{% block content %} {% if user.is_authenticated %}
+		<div class="welcome">
+			<h1>Welcome, {{ user.username }}!</h1>
+		</div>
+
 		<div class="spending">
 			<div class="category-list">
 				<div class="category-heading">
 					<h1>Your Spending</h1>
+					<button 
+					type="button" 
+					class="edit-button" 
+					data-bs-toggle="modal"
+					data-bs-target="#editModal"
+					data-bs-whatever="@mdo"
+					>
+						<img class="edit-img" src="{% static 'testapp/img/white-edit.png' %}" alt="refresh" />
+					</button>
 				</div>
 				{% if spending_categories_list %}
 				<div class="category-sorting">
@@ -34,7 +48,7 @@
 				<div class="button-div">
 					<button
 						type="button"
-						class="btn btn-primary"
+						class="log-button"
 						data-bs-toggle="modal"
 						data-bs-target="#payModal"
 						data-bs-whatever="@mdo"
@@ -43,7 +57,7 @@
 					</button>
 					<button
 						type="button"
-						class="btn btn-success"
+						class="create-button"
 						data-bs-toggle="modal"
 						data-bs-target="#createModal"
 						data-bs-whatever="@adg"
@@ -100,7 +114,7 @@
 								<div class="modal-footer" name="log_spending">
 									<button
 										type="submit"
-										class="btn btn-primary"
+										class="log-button"
 										name="action"
 										value="log_spending"
 									>
@@ -168,7 +182,7 @@
 								<div class="modal-footer">
 									<button
 										type="submit"
-										class="btn btn-primary"
+										class="create-button"
 										name="action"
 										value="create_spending"
 									>
@@ -180,11 +194,99 @@
 					</div>
 				</div>
 			</div>
+			<div
+				class="modal fade"
+				id="editModal"
+				tabindex="-1"
+				aria-labelledby="editModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel2">
+								Edit Spending Categories
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category_spent" class="col-form-label">
+										Category:
+									</label>
+									<select id="category_chosen" name="category">
+										{% for category in spending_categories_list %}
+										<option value="{{ category.spending_category }}">
+											{{ category.spending_category }}
+										</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="category-name" class="col-form-label">
+										Category Name:
+									</label>
+									<input
+										type="text"
+										class="form-control"
+										name="category-name"
+									/>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Monthly Budget:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="monthly-budget"
+									></textarea>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Current Spending:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="current-spending"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="submit"
+										class="create-button"
+										name="action"
+										value="edit-category"
+									>
+										Update
+									</button>
+									<button
+										type="submit"
+										class="delete-button"
+										name="action"
+										value="delete-category"
+									>
+										Delete
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 			{% else %}
 			<div class="button-div">
 				<button
 					type="button"
-					class="btn btn-success"
+					class="create-button"
 					data-bs-toggle="modal"
 					data-bs-target="#createModal"
 					data-bs-whatever="@adg"
@@ -248,7 +350,7 @@
 								<div class="modal-footer">
 									<button
 										type="submit"
-										class="btn btn-primary"
+										class="create-button"
 										name="action"
 										value="create_spending"
 									>
@@ -286,7 +388,7 @@
 				<div class="button-div">
 					<button
 					type="button"
-					class="btn btn-primary"
+					class="log-button"
 					data-bs-toggle="modal"
 					data-bs-target="#logSavingsModal"
 					data-bs-whatever="@adg"
@@ -295,7 +397,7 @@
 					</button>
 					<button
 						type="button"
-						class="btn btn-success"
+						class="create-button"
 						data-bs-toggle="modal"
 						data-bs-target="#createSavingsModal"
 						data-bs-whatever="@adg"
@@ -308,7 +410,7 @@
 				<div class="button-div">
 					<button
 						type="button"
-						class="btn btn-success"
+						class="create-button"
 						data-bs-toggle="modal"
 						data-bs-target="#createSavingsModal"
 						data-bs-whatever="@adg"
@@ -341,7 +443,7 @@
 				<div class="button-div">
 					<button
 					type="button"
-					class="btn btn-primary"
+					class="log-button"
 					data-bs-toggle="modal"
 					data-bs-target="#updateDebtModal"
 					data-bs-whatever="@adg"
@@ -350,7 +452,7 @@
 					</button>
 					<button
 						type="button"
-						class="btn btn-success"
+						class="create-button"
 						data-bs-toggle="modal"
 						data-bs-target="#createDebtModal"
 						data-bs-whatever="@adg"
@@ -362,7 +464,7 @@
 				<div class="button-div">
 					<button
 						type="button"
-						class="btn btn-success"
+						class="create-button"
 						data-bs-toggle="modal"
 						data-bs-target="#debtModal"
 						data-bs-whatever="@adg"
@@ -419,7 +521,7 @@
 								<div class="modal-footer">
 									<button
 										type="submit"
-										class="btn btn-primary"
+										class="create-button"
 										name="action"
 										value="create_savings"
 									>
@@ -478,7 +580,7 @@
 								<div class="modal-footer">
 									<button
 										type="submit"
-										class="btn btn-primary"
+										class="create-button"
 										name="action"
 										value="create_debt"
 									>
@@ -539,7 +641,7 @@
 							<div class="modal-footer">
 								<button
 									type="submit"
-									class="btn btn-primary"
+									class="log-button"
 									name="action"
 									value="log_savings"
 								>
@@ -600,7 +702,7 @@
 								<div class="modal-footer">
 									<button
 										type="submit"
-										class="btn btn-primary"
+										class="log-button"
 										name="action"
 										value="log_debt"
 									>

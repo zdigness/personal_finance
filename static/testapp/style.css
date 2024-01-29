@@ -6,6 +6,16 @@ body {
     font-family:'DM Mono', monospace !important;
 }
 
+.welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+
+    color: white;
+}
+
 .spending {
     display: flex;
     flex-direction: row;
@@ -57,7 +67,7 @@ body {
     width: 100%;
 
     background: #17141d;
-    box-shadow: 0rem 0 3rem #000;
+    box-shadow: 0rem 0 2rem #000;
 }
 
 .category-list {
@@ -69,10 +79,9 @@ body {
     width: 100%;
 
     background: #17141d;
-    box-shadow: 0rem 0 3rem #000;
+    box-shadow: 0rem 0 2rem #000;
 }
 
-.category-heading,
 .savings-heading,
 .debts-heading {
     display: flex;
@@ -81,6 +90,23 @@ body {
     flex-direction: row;
     text-underline-offset: 10px;
     text-decoration-thickness: 2px;
+}
+
+.category-heading {
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-heading h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    width: 100%;
+    margin-left: 40px;
 }
 
 .category-heading h1,
@@ -260,7 +286,7 @@ body {
     background-color: #fff;
     border-radius: 16px;
     background: #17141d;
-    box-shadow: 0rem 0 3rem #000;
+    box-shadow: 0rem 0 2rem #000;
     overflow: hidden;
 }
 
@@ -321,7 +347,7 @@ body {
 
     border-radius: 16px;
     background: #17141d;
-    box-shadow: 0rem 0 3rem #000;
+    box-shadow: 0rem 0 2rem #000;
 }
 
 @media (max-width: 1260px) {
@@ -382,4 +408,101 @@ body {
 
 .carousel-next {
     right: 10px;
+}
+
+.log-button {
+    background-color: white;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100px;
+    height: 35px;
+    border-radius: 16px;
+    margin: 10px;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.log-button:hover {
+    background-color: #006CBA;
+    color: white;
+}
+
+.log-button:active {
+    background-color: #006CBA;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(2px);
+}
+
+.create-button {
+    background-color: green;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100px;
+    height: 35px;
+    border-radius: 16px;
+    margin: 10px;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-button:hover {
+    background-color: darkgreen;
+    color: white;
+}
+
+.create-button:active {
+    background-color: darkgreen;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(2px);
+}
+
+.edit-button {
+    border: none;
+    padding: 0;
+    background: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.edit-button:hover {
+    background-color: black;
+    color: white;
+}
+
+.modal-body,
+.modal-header,
+.modal-footer {
+    background-color: lightgray;
+    color: black;
+}
+
+.delete-button {
+    background-color: white;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100px;
+    height: 35px;
+    border-radius: 16px;
+    margin: 10px;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.delete-button:hover {
+    background-color: #FF3632;
+    color: white;
 }

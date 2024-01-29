@@ -108,6 +108,52 @@ class IndexView(generic.ListView):
                     ) + float(amount)
                     savings_account.save()
                     return redirect(reverse("testapp:index"))
+                if request.POST["action"] == "edit-category":
+                    category = request.POST["category"]
+                    name = request.POST["category-name"]
+                    budget = request.POST["monthly-budget"]
+                    current = request.POST["current-spending"]
+                    if budget == "" and current == "" and name == "":
+                        return redirect(reverse("testapp:index"))
+                    elif budget == "" and current == "":
+                        Spending_Category.objects.filter(
+                            spending_category=category
+                        ).update(spending_category=name)
+                    elif budget == "" and name == "":
+                        Spending_Category.objects.filter(
+                            spending_category=category
+                        ).update(current_spending=current)
+                    elif current == "" and name == "":
+                        Spending_Category.objects.filter(
+                            spending_category=category
+                        ).update(monthly_budget=budget)
+                    elif budget == "":
+                        Spending_Category.objects.filter(
+                            spending_category=category
+                        ).update(spending_category=name, current_spending=current)
+                    elif current == "":
+                        Spending_Category.objects.filter(
+                            spending_category=category
+                        ).update(spending_category=name, monthly_budget=budget)
+                    elif name == "":
+                        Spending_Category.objects.filter(
+                            spending_category=category
+                        ).update(current_spending=current, monthly_budget=budget)
+                    else:
+                        Spending_Category.objects.filter(
+                            spending_category=category
+                        ).update(
+                            spending_category=name,
+                            monthly_budget=budget,
+                            current_spending=current,
+                        )
+                    return redirect(reverse("testapp:index"))
+                if request.POST["action"] == "delete-category":
+                    category = request.POST["category"]
+                    Spending_Category.objects.filter(
+                        spending_category=category
+                    ).delete()
+                    return redirect(reverse("testapp:index"))
         else:
             username = request.POST["username"]
             password = request.POST["password"]
