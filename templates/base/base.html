@@ -26,35 +26,43 @@
 		<title>Document</title>
 	</head>
 	<body>
-		<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
+		<nav class="navbar navbar-expand-lg navbar-light sticky-top">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="{% url 'testapp:index' %}">Finance</a>
-				<button
-					class="navbar-toggler"
-					type="button"
-					data-bs-toggle="collapse"
-					data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent"
-					aria-expanded="false"
-					aria-label="Toggle navigation"
-				>
-					<span class="navbar-toggler-icon"></span>
-				</button>
+				<a class="navbar-brand" href="{% url 'testapp:index' %}">
+					<img
+						src="{% static 'testapp/img/money.png' %}"
+						alt=""
+						class="d-inline-block align-text-top"
+					/>
+				</a>
+				<div class="burger-account">
+					<button class="account-toggler">
+						<img
+							src="{% static 'testapp/img/account.png' %}"
+							alt=""
+							class="d-inline-block align-text-top"
+						/>
+					</button>
+					<button
+						class="navbar-toggler bg-light"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+					>
+						<span class="navbar-toggler-icon bg-light"></span>
+					</button>
+				</div>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						{% if user.is_authenticated %}
-						<li class="nav-item">
-							<a class="nav-link" href="{% url 'testapp:index' %}">Home</a>
-						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="{% url 'testapp:spending' %}"
 								>Analytics</a
 							>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{% url 'testapp:logout' %}">Logout</a>
-						</li>
-
 						{% else %}
 
 						<li class="nav-item">
@@ -65,7 +73,6 @@
 								>Register</a
 							>
 						</li>
-
 						{% endif %}
 					</ul>
 				</div>

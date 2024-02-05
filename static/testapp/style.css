@@ -21,13 +21,17 @@ body {
     flex-direction: row;
     padding-left: 10%;
     padding-right: 10%;
+    margin-bottom: 0px;
 }
 
 .savings-debts {
     display: flex;
     flex-direction: row;
-    padding-left: 12%;
-    padding-right: 12%;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-top: 50px;
+    margin-bottom : 50px;
+    gap: 50px;
 }
 
 .savings-container,
@@ -35,6 +39,18 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 990px) {
+    .savings-debts {
+        display: flex;
+        flex-direction: column;
+        padding-left: 10%;
+        padding-right: 10%;
+        margin-top: 50px;
+    }
 }
 
 .debt-item,
@@ -61,7 +77,6 @@ body {
 .debts-list {
     display: flex;
     flex-direction: column;
-    margin: 20px;
     border-radius: 16px;
     height: min-content;
     width: 100%;
@@ -74,6 +89,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 20px;
+    margin-bottom: 0px;
     border-radius: 16px;
     height: min-content;
     width: 100%;
@@ -505,4 +521,55 @@ body {
 .delete-button:hover {
     background-color: #FF3632;
     color: white;
+}
+
+.navbar {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.nav-item {
+    margin: 0 10px;
+}
+
+.link-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.account-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+}
+
+.account-toggler {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: none;
+    order: 1;
+}
+
+.burger-account {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    order: 1;
+}
+
+@media (max-width: 990px) {
+    .burger-account {
+        order: 0;
+    }
 }
