@@ -192,8 +192,8 @@ class AnalyticView(generic.ListView):
                     {
                         "user_input": user_input,
                         "bot_messages": bot_messages,
-                        "pie-chart": get_chart(self.request.user.id),
-                        "bar-chart": get_bar_chart(self.request.user.id),
+                        "piechart": get_chart(self.request.user.id),
+                        "barchart": get_bar_chart(self.request.user.id),
                     },
                 )
             else:

@@ -720,6 +720,7 @@
 		<div class="login-form">
 			<form method="POST" action="{% url 'testapp:index' %}">
 				{% csrf_token %}
+				<h1>Login</h1>
 				<form>
 					<div class="mb-3">
 						<label class="form-label">Username</label>
@@ -744,8 +745,15 @@
 							required
 						/>
 					</div>
-					<div class="login-submit">
-						<button type="submit" class="btn btn-primary">Login</button>
+					<div class = "login-register">
+						<div class="login-submit">
+							<button type="submit" class="login-button">Login</button>
+						</div>
+						<div class="register">
+							<button class="register-button">
+								<a href="{% url 'testapp:register' %}">Register</a>
+							</button>
+						</div>
 					</div>
 				</form>
 			</form>

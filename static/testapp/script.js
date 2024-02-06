@@ -54,3 +54,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Set initial position
     setInitialPosition();
 });
+
+const nav = document.querySelector(".navbar");
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+        nav.classList.add("navbar-scrolled");
+    } else {
+        nav.classList.remove("navbar-scrolled");
+    }
+});
