@@ -305,8 +305,7 @@ def ajax_post(request):
         ChatMessage.objects.create(
             user_id=request.user.id, message=bot_response, sender="bot"
         )
-        response_data = {"message": bot_response}
-        print(response_data)
+        response_data = {"message": bot_response, "userMessage": user_message}
         return JsonResponse(response_data)
     else:
         print("Invalid Message")

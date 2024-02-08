@@ -6,24 +6,15 @@ $(document).on('submit', '#my-form', function (e) {
         data: $(this).serialize(), // serializes the form's elements.
         success: function (response) {
             botMessage = response.message;
-            $("#chatbot-messages").append('<p>' + botMessage + '</p>')
-
+            userMessages = response.userMessage;
+            $("#chatbot-messages").append("<p class='user-message'>" + userMessages + "</p>");
+            $("#chatbot-messages").append("<p class='chatbot-message'>" + botMessage + "</p>");
+            $("#my-form")[0].reset();
         },
         error: function (response) {
         }
     });
 });
-
-function calculate() {
-    var category_list = document.querySelectorAll(".category")
-
-    for (var i = 0; i < category_list.length; i++) {
-        var x = category_list[i].querySelector("#current").innerHTML.slice(1)
-        var y = category_list[i].querySelector("#spent").innerHTML.slice(1)
-        var z = parseFloat(x - y).toFixed(2)
-        category_list[i].querySelector("#result").innerHTML = "$" + z;
-    }
-}
 
 document.addEventListener("DOMContentLoaded", function () {
     const track = document.querySelector(".carousel-track");
