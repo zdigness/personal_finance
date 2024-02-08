@@ -4,6 +4,8 @@
 		{% extends '../base/base.html' %}
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{% load static %}
+		<script defer src="{% static 'testapp/script.js' %}"></script>
 		<title>Document</title>
 	</head>
 	<body>
@@ -15,22 +17,21 @@
 			<div class="chatbot-subheader">
 				<p>Any questions about your finances?</p>
 			</div>
-			<div class="chatbot-body">
-				{% for bot_message in bot_messages %}
-				<div class="chatbot-message">
-					<p>{{ bot_message }}</p>
-				</div>
-				{% endfor %}
+			<div id="chatbot-messages" class="chatbot-messages">
+				<p></p>
 			</div>
 			<div class="chatbot-input">
-				<form action="" method="post">
+				<form action="" id="my-form">
 					{% csrf_token %}
 					<input
 						class="chatbot-input-field"
 						type="text"
-						name="user_input"
+						name="message"
 						placeholder="Type your message..."
 					/>
+					<button id="send-message" class="chatbot-input-button" type="submit">
+						Submit
+					</button>
 				</form>
 			</div>
 		</div>

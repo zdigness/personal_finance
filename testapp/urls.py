@@ -8,4 +8,5 @@ urlpatterns = [
     path("spending/", views.AnalyticView.as_view(), name="spending"),
     path("logout/", views.logout_user, name="logout"),
     path("register/", views.register_user, name="register"),
+    path("ajax/post/url", views.ajax_post, name="ajax_post"),
 ]

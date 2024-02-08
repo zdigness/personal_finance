@@ -1,3 +1,19 @@
+$(document).on('submit', '#my-form', function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "/ajax/post/url",
+        data: $(this).serialize(), // serializes the form's elements.
+        success: function (response) {
+            botMessage = response.message;
+            $("#chatbot-messages").append('<p>' + botMessage + '</p>')
+
+        },
+        error: function (response) {
+        }
+    });
+});
+
 function calculate() {
     var category_list = document.querySelectorAll(".category")
 

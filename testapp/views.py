@@ -1,10 +1,18 @@
 from django.db.models.query import QuerySet
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, redirect
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import generic
 
-from .models import Spending_Category, Spending, Income, Savings, Debt, Debt_Payment
+from .models import (
+    Spending_Category,
+    Spending,
+    Income,
+    Savings,
+    Debt,
+    Debt_Payment,
+    ChatMessage,
+)
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
@@ -168,6 +176,7 @@ class IndexView(generic.ListView):
 
 
 class AnalyticView(generic.ListView):
+    model = ChatMessage
     template_name = "testapp/spending.html"
     context_object_name = "spending"
 
@@ -179,27 +188,6 @@ class AnalyticView(generic.ListView):
         context["piechart"] = get_chart(self.request.user.id)
         context["barchart"] = get_bar_chart(self.request.user.id)
         return context
-
-    def post(self, request):
-        if request.user.is_authenticated:
-            if request.method == "POST":
-                user_input = request.POST["user_input"]
-                bot_response = get_response(str(user_input))
-                bot_messages.append(bot_response)
-                return render(
-                    request,
-                    "testapp/spending.html",
-                    {
-                        "user_input": user_input,
-                        "bot_messages": bot_messages,
-                        "piechart": get_chart(self.request.user.id),
-                        "barchart": get_bar_chart(self.request.user.id),
-                    },
-                )
-            else:
-                return render(request, "testapp/spending.html")
-        else:
-            return redirect(reverse("testapp:index"))
 
 
 def logout_user(request):
@@ -300,3 +288,26 @@ def get_bar_chart(user_id: int):
     barchart = barchart.decode("utf-8")
     bff.close()
     return barchart
+
+
+def is_ajax(request):
+    return request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest"
+
+
+def ajax_post(request):
+    if request.method == "POST":
+        print("inside ajax post")
+        user_message = request.POST.get("message", None)
+        bot_response = get_response(str(user_message))
+        ChatMessage.objects.create(
+            user_id=request.user.id, message=user_message, sender="user"
+        )
+        ChatMessage.objects.create(
+            user_id=request.user.id, message=bot_response, sender="bot"
+        )
+        response_data = {"message": bot_response}
+        print(response_data)
+        return JsonResponse(response_data)
+    else:
+        print("Invalid Message")
+        return JsonResponse({"response": "Invalid Message"})
