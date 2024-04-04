@@ -1,0 +1,7 @@
+Django==4.1.7
+decouple==0.0.7
+python-decouple==3.8
+mysqlclient==2.2.4
+matplotlib==3.8.4
+seaborn==0.13.2
+openai==1.16.1
