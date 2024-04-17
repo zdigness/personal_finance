@@ -31,15 +31,13 @@
 				<div class="category-sorting">
 					<h2 class="needs-border">Categoy</h2>
 					<h2 class="needs-border">Budget</h2>
-					<h2 class="needs-border">Spent</h2>
-					<h2>Remaining</h2>
+					<h2>Spent</h2>
 				</div>
 				{% for category in spending_categories_list %}
 				<div class="category">
 					<h2>{{ category.spending_category }}</h2>
 					<h2 id="current">${{ category.monthly_budget }}</h2>
 					<h2 id="spent">${{ category.current_spending }}</h2>
-					<h2 id="result"></h2>
 				</div>
 				{% endfor %}
 				<script>

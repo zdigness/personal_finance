@@ -774,3 +774,30 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+@media (max-width: 1000px) {
+    .category-list h2 {
+        font-size: 13px;
+    }
+    .category-heading h1 {
+        font-size: 13px;
+        margin-left: 20px;
+    }
+    .savings-heading h1,
+    .savings-heading h2,
+    .savings-container h2,
+    .savings-sorting h2 {
+        font-size: 13px;
+    }
+    .log-button,
+    .create-button,
+    .delete-button {
+        font-size: 13px;
+        width: 60px;
+        height: 25px;
+    }
+
+    .welcome h1 {
+        font-size: 15px;
+    }
+}
