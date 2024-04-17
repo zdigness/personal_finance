@@ -11,5 +11,7 @@ Financiel Reporting: Generate charts and reports to visualize spending patterns,
 # Technologies
 
 Django (Web Framework) https://www.djangoproject.com/
-Python (Programming Language) https://www.python.org/
+
+Python (Programming Language) https://www.python.org/ 
+
 MySQL (Relational Database) https://www.mysql.com/
