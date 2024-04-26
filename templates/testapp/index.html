@@ -2,9 +2,6 @@
 <html lang="en">
 	<head>
 		{% extends '../base/base.html' %}
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
 	</head>
 	<body>
 		{% load static %}
@@ -360,6 +357,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 			{% endif %}
 		</div>
 
@@ -417,7 +415,6 @@
 					</button>
 				</div>
 			</div>
-			</div>
 			{% endif %}
 			<div class="debts-list">
 				<div class="debts-heading">
@@ -464,7 +461,7 @@
 						type="button"
 						class="create-button"
 						data-bs-toggle="modal"
-						data-bs-target="#debtModal"
+						data-bs-target="#createDebtModal"
 						data-bs-whatever="@adg"
 					>
 						Create
