@@ -71,3 +71,10 @@ window.addEventListener("scroll", () => {
         nav.classList.remove("navbar-scrolled");
     }
 });
+
+const authAlertsDiv = document.querySelector('.auth-alerts'); 
+const alertDiv = authAlertsDiv.querySelector('.alert');
+
+alertDiv.addEventListener('closed.bs.alert', () => { 
+    authAlertsDiv.remove(); // Remove the entire auth-alerts div
+});
