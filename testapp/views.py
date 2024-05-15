@@ -116,7 +116,7 @@ class IndexView(generic.ListView):
                     ) + float(amount)
                     savings_account.save()
                     return redirect(reverse("testapp:index"))
-                if request.POST["action"] == "edit-category":
+                if request.POST["action"] == "edit-spending-category":
                     category = request.POST["category"]
                     name = request.POST["category-name"]
                     budget = request.POST["monthly-budget"]
@@ -156,11 +156,57 @@ class IndexView(generic.ListView):
                             current_spending=current,
                         )
                     return redirect(reverse("testapp:index"))
-                if request.POST["action"] == "delete-category":
+                if request.POST["action"] == "delete-spending-category":
                     category = request.POST["category"]
                     Spending_Category.objects.filter(
                         spending_category=category
                     ).delete()
+                    return redirect(reverse("testapp:index"))
+                if request.POST["action"] == "edit-saving-category":
+                    account = request.POST["account"]
+                    name = request.POST["account-name"]
+                    amount = request.POST["amount"]
+                    if amount == "" and name == "":
+                        return redirect(reverse("testapp:index"))
+                    elif amount == "":
+                        Savings.objects.filter(savings_account=account).update(
+                            savings_account=name
+                        )
+                    elif name == "":
+                        Savings.objects.filter(savings_account=account).update(
+                            savings_amount=amount
+                        )
+                    else:
+                        Savings.objects.filter(savings_account=account).update(
+                            savings_account=name, savings_amount=amount
+                        )
+                    return redirect(reverse("testapp:index"))
+                if request.POST["action"] == "delete-saving-category":
+                    account = request.POST["account"]
+                    Savings.objects.filter(savings_account=account).delete()
+                    return redirect(reverse("testapp:index"))
+                if request.POST["action"] == "edit-debt-category":
+                    account = request.POST["account"]
+                    name = request.POST["account-name"]
+                    amount = request.POST["amount"]
+                    if amount == "" and name == "":
+                        return redirect(reverse("testapp:index"))
+                    elif amount == "":
+                        Debt.objects.filter(debt_account=account).update(
+                            debt_account=name
+                        )
+                    elif name == "":
+                        Debt.objects.filter(debt_account=account).update(
+                            debt_amount=amount
+                        )
+                    else:
+                        Debt.objects.filter(debt_account=account).update(
+                            debt_account=name, debt_amount=amount
+                        )
+                    return redirect(reverse("testapp:index"))
+                if request.POST["action"] == "delete-debt-category":
+                    account = request.POST["account"]
+                    Debt.objects.filter(debt_account=account).delete()
                     return redirect(reverse("testapp:index"))
         else:
             username = request.POST["username"]

@@ -17,7 +17,7 @@
 					type="button" 
 					class="edit-button" 
 					data-bs-toggle="modal"
-					data-bs-target="#editModal"
+					data-bs-target="#editSpendingModal"
 					data-bs-whatever="@mdo"
 					>
 						<img class="edit-img" src="{% static 'testapp/img/white-edit.png' %}" alt="refresh" />
@@ -190,7 +190,7 @@
 			</div>
 			<div
 				class="modal fade"
-				id="editModal"
+				id="editSpendingModal"
 				tabindex="-1"
 				aria-labelledby="editModalLabel"
 				aria-hidden="true"
@@ -258,7 +258,7 @@
 										type="submit"
 										class="create-button"
 										name="action"
-										value="edit-category"
+										value="edit-spending-category"
 									>
 										Update
 									</button>
@@ -266,7 +266,7 @@
 										type="submit"
 										class="delete-button"
 										name="action"
-										value="delete-category"
+										value="delete-spending-category"
 									>
 										Delete
 									</button>
@@ -364,6 +364,15 @@
 			<div class="savings-list">
 				<div class="savings-heading">
 					<h1>Your Savings</h1>
+					<button 
+					type="button" 
+					class="edit-button" 
+					data-bs-toggle="modal"
+					data-bs-target="#editSavingModal"
+					data-bs-whatever="@mdo"
+					>
+						<img class="edit-img" src="{% static 'testapp/img/white-edit.png' %}" alt="refresh" />
+					</button>
 				</div>
 				{% if savings %}
 				<div class="savings-sorting">
@@ -418,6 +427,15 @@
 			<div class="debts-list">
 				<div class="debts-heading">
 					<h1>Your Debts</h1>
+					<button 
+					type="button" 
+					class="edit-button" 
+					data-bs-toggle="modal"
+					data-bs-target="#editDebtModal"
+					data-bs-whatever="@mdo"
+					>
+						<img class="edit-img" src="{% static 'testapp/img/white-edit.png' %}" alt="refresh" />
+					</button>
 				</div>
 				{% if debt %}
 				<div class="debt-sorting">
@@ -467,6 +485,164 @@
 					</button>
 				</div>
 				{% endif %}
+			</div>
+
+			<div
+				class="modal fade"
+				id="editSavingModal"
+				tabindex="-1"
+				aria-labelledby="editModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel2">
+								Edit Savings Accounts
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category_spent" class="col-form-label">
+										Category:
+									</label>
+									<select id="category_chosen" name="account">
+										{% for saving in savings %}
+										<option value="{{ saving.savings_account }}">
+											{{ saving.savings_account }}
+										</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="account-name" class="col-form-label">
+										Account Name:
+									</label>
+									<input
+										type="text"
+										class="form-control"
+										name="account-name"
+									/>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Amount:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="amount"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="submit"
+										class="create-button"
+										name="action"
+										value="edit-saving-category"
+									>
+										Update
+									</button>
+									<button
+										type="submit"
+										class="delete-button"
+										name="action"
+										value="delete-saving-category"
+									>
+										Delete
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div
+			class="modal fade"
+			id="editDebtModal"
+			tabindex="-1"
+			aria-labelledby="editModalLabel"
+			aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel2">
+								Edit Debt Accounts
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category_spent" class="col-form-label">
+										Category:
+									</label>
+									<select id="category_chosen" name="account">
+										{% for debt in debt %}
+										<option value="{{ debt.debt_account }}">
+											{{ debt.debt_account }}
+										</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="account-name" class="col-form-label">
+										Account Name:
+									</label>
+									<input
+										type="text"
+										class="form-control"
+										name="account-name"
+									/>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Amount:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="amount"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="submit"
+										class="create-button"
+										name="action"
+										value="edit-debt-category"
+									>
+										Update
+									</button>
+									<button
+										type="submit"
+										class="delete-button"
+										name="action"
+										value="delete-debt-category"
+									>
+										Delete
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div
@@ -733,12 +909,11 @@
 <div class="login">
 	<div class="login-main">
 		<div class="login-form">
-			<form method="POST" action="{% url 'testapp:index' %}">
+			<form class="login-input" method="POST" action="{% url 'testapp:index' %}">
 				{% csrf_token %}
-				<h1>Login</h1>
+				<h1>Welcome</h1>
 				<form>
 					<div class="mb-3">
-						<label class="form-label">Username</label>
 						<input
 							type="username"
 							class="form-control"
@@ -748,9 +923,6 @@
 						/>
 					</div>
 					<div class="mb-3">
-						<label for="exampleInputPassword1" class="form-label"
-							>Password</label
-						>
 						<input
 							type="password"
 							class="form-control"
@@ -760,18 +932,14 @@
 							required
 						/>
 					</div>
-					<div class = "login-register">
-						<div class="login-submit">
-							<button type="submit" class="login-button">Login</button>
-						</div>
-						<div class="register">
-							<button class="register-button">
-								<a href="{% url 'testapp:register' %}">Register</a>
-							</button>
-						</div>
+					<div class="login-submit">
+						<button type="submit" class="login-button">Login</button>
 					</div>
 				</form>
 			</form>
+			<div class="register-link">
+				Don't have an account? <a href="{% url 'testapp:register' %}">Sign up</a>
+			</div>
 		</div>
 	</div>
 </div>
