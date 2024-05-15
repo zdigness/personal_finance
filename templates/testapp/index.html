@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		{% extends '../base/base.html' %}
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-	</head>
-	<body>
-		{% load static %}
-		{% block content %} {% if user.is_authenticated %}
+{% extends '../base/base.html' %}
+{% load static %}
+
+{% block content %} 
+{% if user.is_authenticated %}
+<div class="loggedin">
+	<div class="loggedin-main">
 		<div class="welcome">
 			<h1>Welcome, {{ user.username }}!</h1>
 		</div>
@@ -360,6 +356,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 			{% endif %}
 		</div>
 
@@ -417,7 +414,6 @@
 					</button>
 				</div>
 			</div>
-			</div>
 			{% endif %}
 			<div class="debts-list">
 				<div class="debts-heading">
@@ -464,7 +460,7 @@
 						type="button"
 						class="create-button"
 						data-bs-toggle="modal"
-						data-bs-target="#debtModal"
+						data-bs-target="#createDebtModal"
 						data-bs-whatever="@adg"
 					>
 						Create
@@ -713,8 +709,29 @@
 				</div>
 			</div>
 		</div>
+		</div>
+	</div>
+</div>
 
-		{% else %}
+<footer>
+	<div class="footer-links">
+			<hr />
+			<a href="https://github.com/zdigness/personal_finance"
+					><img src="../../static/testapp/img/github.png"
+			/></a>
+			<a href="https://www.linkedin.com/in/zdigness/"
+					><img src="../../static/testapp/img/linkedin.png"
+			/></a>
+			<hr />
+	</div>
+	<div class="footer-desc">
+			<p>© 2024 Zoli Digness. All rights reserved.</p>
+	</div>
+</footer>
+
+{% else %}
+<div class="login">
+	<div class="login-main">
 		<div class="login-form">
 			<form method="POST" action="{% url 'testapp:index' %}">
 				{% csrf_token %}
@@ -756,6 +773,22 @@
 				</form>
 			</form>
 		</div>
-		{% endif %} {% endblock %}
-	</body>
-</html>
+	</div>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<hr />
+		<a href="https://github.com/zdigness/personal_finance"
+			><img src="../../static/testapp/img/github.png"
+		/></a>
+		<a href="https://www.linkedin.com/in/zdigness/"
+			><img src="../../static/testapp/img/linkedin.png"
+		/></a>
+		<hr />
+	</div>
+	<div class="footer-desc">
+		<p>© 2024 Zoli Digness. All rights reserved.</p>
+	</div>
+</footer>
+{% endif %} {% endblock %}
