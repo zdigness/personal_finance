@@ -47,11 +47,13 @@ class IndexView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context["spending"] = Spending.objects.all()
-        context["income"] = Income.objects.all()
-        context["savings"] = Savings.objects.all()
-        context["debt"] = Debt.objects.all()
-        context["debt_payment"] = Debt_Payment.objects.all()
+        context["spending"] = Spending.objects.filter(user_id=self.request.user.id)
+        context["income"] = Income.objects.filter(user_id=self.request.user.id)
+        context["savings"] = Savings.objects.filter(user_id=self.request.user.id)
+        context["debt"] = Debt.objects.filter(user_id=self.request.user.id)
+        context["debt_payment"] = Debt_Payment.objects.filter(
+            user_id=self.request.user.id
+        )
         return context
 
     def post(self, request):
@@ -88,6 +90,7 @@ class IndexView(generic.ListView):
                     amount = request.POST["amount"]
                     account = request.POST["account"]
                     Debt.objects.create(
+                        user_id=request.user.id,
                         debt_account=account,
                         debt_amount=amount,
                     )
@@ -103,6 +106,7 @@ class IndexView(generic.ListView):
                     amount = request.POST["amount"]
                     account = request.POST["account"]
                     Savings.objects.create(
+                        user_id=request.user.id,
                         savings_account=account,
                         savings_amount=amount,
                     )
