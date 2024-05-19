@@ -1,0 +1,120 @@
+.money-sign,
+.safe,
+.debt {
+  padding: 10px;
+}
+
+.empty-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+  padding-top: -20px;
+}
+
+.empty-text h1 {
+  font-size: 30px;
+  font-style: bold;
+}
+
+.empty-text p {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+svg {
+  display: block;
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+}
+
+/* ------ LAYERS ------ */
+.red {
+  animation: rocking-red 2.4s 0.667s forwards;
+}
+
+.purple {
+  transform: translateY(-35px);
+  animation: bounce-purple 1s 0.42s forwards;
+}
+
+.grey {
+  stroke-dashoffset: -40.5px;
+  animation: trace-stroke 1.6s 0.46s forwards;
+}
+
+/* ------ ANIMATION CLASSES - GLOBAL ------ */
+
+/* ------ NONE USED ------ */
+
+/* ------ ANIMATION CLASSES - BESPOKE ------ */
+@keyframes rocking-red {
+  0% {
+    transform-origin: 74px 36px;
+    transform: rotateZ(0deg) translateY(0px);
+    animation-timing-function: cubic-bezier(0.62, 0.01, 0.55, 0.99);
+  }
+  33% {
+    transform-origin: 85.1px 36px;
+    transform: rotateZ(58deg) translateY(1.1px);
+    animation-timing-function: cubic-bezier(0.54, -0.08, 0.51, 1);
+  }
+  55.6% {
+    transform-origin: 83px 36px;
+    transform: rotateZ(30deg) translateY(2.4px);
+    animation-timing-function: cubic-bezier(0.52, -0.08, 0.7, 0.99);
+  }
+  75% {
+    transform-origin: 83.5px 36px;
+    transform: rotateZ(52deg) translateY(0.7px);
+    animation-timing-function: cubic-bezier(0.53, -0.02, 0.68, 0.91);
+  }
+  90% {
+    transform-origin: 81.5px 36px;
+    transform: rotateZ(41.8deg) translateY(0.5px);
+    animation-timing-function: cubic-bezier(0.52, 0.06, 0.65, 0.99);
+  }
+  100% {
+    transform-origin: 81.5px 36px;
+    transform: rotateZ(45deg) translateY(0px);
+  }
+}
+
+@keyframes bounce-purple {
+  0% {
+    transform: translateY(-35px);
+    animation-timing-function: cubic-bezier(0.85, 0.01, 0.83, 0.92);
+    /*     .79,.03,.79,.99 */
+  }
+  70% {
+    transform: translateY(0px);
+    animation-timing-function: cubic-bezier(0.23, 0.27, 0.79, 0.91);
+  }
+  85% {
+    transform: translateY(-2px);
+    animation-timing-function: cubic-bezier(0.32, 0.2, 0.75, 0.99);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes trace-stroke {
+  0% {
+    stroke-dashoffset: -40.5px;
+    animation-timing-function: cubic-bezier(0.7, -0.02, 0.72, 0.8);
+  }
+  24% {
+    stroke-dashoffset: -31.5px;
+    animation-timing-function: cubic-bezier(0.62, 0.08, 0.76, 0.87);
+  }
+  56% {
+    stroke-dashoffset: -8.2px;
+    animation-timing-function: cubic-bezier(0.16, 0.24, 0.34, 1);
+  }
+  100% {
+    stroke-dashoffset: 0px;
+  }
+}

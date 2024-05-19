@@ -1,0 +1,165 @@
+.main {
+  min-height: 100%;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+
+  color: white;
+}
+
+.spending {
+  display: flex;
+  flex-direction: row;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-bottom: 0px;
+}
+
+.savings-debts {
+  display: flex;
+  flex-direction: row;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-top: 50px;
+  margin-bottom: 200px;
+  gap: 50px;
+}
+
+.savings-container,
+.debts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-content: center;
+}
+
+.debt-item,
+.saving-item {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.debt-item h2,
+.saving-item h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  width: 100%;
+}
+
+.savings-list,
+.debts-list {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  height: min-content;
+  width: 100%;
+
+  background: #17141d;
+  box-shadow: 0rem 0 2rem #000;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  margin-bottom: 0px;
+  border-radius: 16px;
+  height: min-content;
+  width: 100%;
+
+  background: #17141d;
+  box-shadow: 0rem 0 2rem #000;
+}
+
+.debts-heading,
+.savings-heading,
+.category-heading {
+  display: grid;
+  grid-template-columns: 10fr 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-heading h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  width: 100%;
+  margin-left: 40px;
+}
+
+.debts-heading h1,
+.savings-heading h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  width: 100%;
+  margin-left: 20px;
+}
+
+.category-heading h1,
+.savings-heading h1,
+.debts-heading h1 {
+  font-size: 30px;
+  padding: 10px;
+}
+
+.category-sorting,
+.debt-sorting,
+.savings-sorting {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.category-sorting h2,
+.debt-sorting h2,
+.savings-sorting h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  width: 100%;
+}
+
+.needs-border {
+  border-right: solid;
+  border-width: 1px;
+}
+
+.category {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.category h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  width: 100%;
+}

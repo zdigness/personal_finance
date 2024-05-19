@@ -8,7 +8,7 @@ Expense Tracking: Log income and expenses with detailed descriptions and categor
 
 Budgeting: Set budgets for different categories and track progress over time.
 
-Financiel Reporting: Generate charts and reports to visualize spending patterns, net worth, and progress towards financial goals.
+Financial Reporting: Generate charts and reports to visualize spending patterns, net worth, and progress towards financial goals.
 
 # Technologies
 
