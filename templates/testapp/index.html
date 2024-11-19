@@ -362,8 +362,17 @@
 
 		<div class="savings-debts">
 			<div class="savings-list">
-				<div class="savings-heading">
+				<div class="category-heading">
 					<h1>Your Savings</h1>
+					<button 
+					type="button" 
+					class="edit-button" 
+					data-bs-toggle="modal"
+					data-bs-target="#editSavingsModal"
+					data-bs-whatever="@mdo"
+					>
+						<img class="edit-img" src="{% static 'testapp/img/white-edit.png' %}" alt="refresh" />
+					</button>
 				</div>
 				{% if savings %}
 				<div class="savings-sorting">
@@ -416,8 +425,17 @@
 			</div>
 			{% endif %}
 			<div class="debts-list">
-				<div class="debts-heading">
+				<div class="category-heading">
 					<h1>Your Debts</h1>
+					<button 
+					type="button" 
+					class="edit-button" 
+					data-bs-toggle="modal"
+					data-bs-target="#editDebtsModal"
+					data-bs-whatever="@mdo"
+					>
+						<img class="edit-img" src="{% static 'testapp/img/white-edit.png' %}" alt="refresh" />
+					</button>
 				</div>
 				{% if debt %}
 				<div class="debt-sorting">
@@ -579,6 +597,164 @@
 										value="create_debt"
 									>
 										Create
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="modal fade"
+				id="editSavingsModal"
+				tabindex="-1"
+				aria-labelledby="editModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel2">
+								Edit Savings Accounts
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category_spent" class="col-form-label">
+										Account:
+									</label>
+									<select id="category_chosen" name="account">
+										{% for saving in savings %}
+										<option value="{{ saving.savings_account }}">
+											{{ saving.savings_account }}
+										</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="category-name" class="col-form-label">
+										Account Name:
+									</label>
+									<input
+										type="text"
+										class="form-control"
+										name="name"
+									/>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Savings:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="amount"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="submit"
+										class="create-button"
+										name="action"
+										value="edit-savings"
+									>
+										Update
+									</button>
+									<button
+										type="submit"
+										class="delete-button"
+										name="action"
+										value="delete-savings"
+									>
+										Delete
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="modal fade"
+				id="editDebtsModal"
+				tabindex="-1"
+				aria-labelledby="editModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel2">
+								Edit Debt Account
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category_spent" class="col-form-label">
+										Account:
+									</label>
+									<select id="category_chosen" name="account">
+										{% for debts in debt %}
+										<option value="{{ debts.debt_account }}">
+											{{ debts.debt_account }}
+										</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="category-name" class="col-form-label">
+										Account Name:
+									</label>
+									<input
+										type="text"
+										class="form-control"
+										name="name"
+									/>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Debt Amount:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="amount"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="submit"
+										class="create-button"
+										name="action"
+										value="edit-debt"
+									>
+										Update
+									</button>
+									<button
+										type="submit"
+										class="delete-button"
+										name="action"
+										value="delete-debt"
+									>
+										Delete
 									</button>
 								</div>
 							</form>
