@@ -27,7 +27,12 @@
 				{% endif %}
 
 				<!-- Form Content -->
-				<div class="register-form">{{ form.as_p }}</div>
+				<div class="register-form">
+					<div class="form-group">{{ form.username }}</div>
+					<div class="form-group">{{ form.email }}</div>
+					<div class="form-group">{{ form.password1 }}</div>
+					<div class="form-group">{{ form.password2 }}</div>
+				</div>
 
 				<div class="register-button-div">
 					<button class="register-button" type="submit">Register</button>
