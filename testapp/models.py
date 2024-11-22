@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Spending_Category(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default="1")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="spending_category"
+    )
     spending_category = models.CharField(max_length=200)
     monthly_budget = models.DecimalField(max_digits=10, decimal_places=2)
     current_spending = models.DecimalField(max_digits=10, decimal_places=2)

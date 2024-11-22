@@ -12,12 +12,12 @@
 		<div class="spending">
 			<div class="category-list">
 				<div class="category-heading">
-					<h1>Your Spending</h1>
+					<h1><img class="money-sign" src="{% static 'testapp/img/money-sign.png' %}" alt="refresh" />Your Spending</h1>
 					<button 
 					type="button" 
 					class="edit-button" 
 					data-bs-toggle="modal"
-					data-bs-target="#editModal"
+					data-bs-target="#editSpendingModal"
 					data-bs-whatever="@mdo"
 					>
 						<img class="edit-img" src="{% static 'testapp/img/white-edit.png' %}" alt="refresh" />
@@ -193,7 +193,7 @@
 			</div>
 			<div
 				class="modal fade"
-				id="editModal"
+				id="editSpendingModal"
 				tabindex="-1"
 				aria-labelledby="editModalLabel"
 				aria-hidden="true"
@@ -264,7 +264,7 @@
 										type="submit"
 										class="create-button"
 										name="action"
-										value="edit-category"
+										value="edit-spending-category"
 									>
 										Update
 									</button>
@@ -272,7 +272,7 @@
 										type="submit"
 										class="delete-button"
 										name="action"
-										value="delete-category"
+										value="delete-spending-category"
 									>
 										Delete
 									</button>
@@ -283,6 +283,19 @@
 				</div>
 			</div>
 			{% else %}
+			<div class="empty-container">
+				<svg id="dashboard-empty-state" xmlns="http://www.w3.org/2000/svg" width="100" height="72" viewBox="0 0 110 72" style="opacity:0.8;">
+				<path class="red" d="M74,18H92A18,18,0,0,1,74,36Z" style="fill: #ff6161;fill-rule: evenodd;"/>
+				<circle class="purple" cx="64.96" cy="45" r="9" style="fill: #716bf1"/>
+				<path class="grey" d="M6.64,49.5l8.86,0a42.86,42.86,0,0,1,9-21l0-9.35" style="fill: none;stroke: #81a2b2;stroke-linecap: round;stroke-linejoin: round;stroke-width: 9px;stroke-dasharray: 0.1 500"/>
+				<path class="blue" d="M56,54V18A36,36,0,0,0,20,54Z" style="fill: #33afff;fill-rule: evenodd;"/>
+				<rect class="yellow" x="73.96" y="36" width="18" height="18" style="fill: #ffce53"/>
+				</svg>
+				<div class="empty-text">
+					<h1>There's nothing here!</h1>
+					<p>You have no spending categories. Create one below.</p>
+				</div>
+			</div>
 			<div class="button-div">
 				<button
 					type="button"
@@ -418,8 +431,93 @@
 						Create
 					</button>
 				</div>
+				<div
+				class="modal fade"
+				id="editSavingModal"
+				tabindex="-1"
+				aria-labelledby="editModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel2">
+								Edit Savings Accounts
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category_spent" class="col-form-label">
+										Category:
+									</label>
+									<select id="category_chosen" name="account">
+										{% for saving in savings %}
+										<option value="{{ saving.savings_account }}">
+											{{ saving.savings_account }}
+										</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="account-name" class="col-form-label">
+										Account Name:
+									</label>
+									<input
+										type="text"
+										class="form-control"
+										name="account-name"
+									/>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Amount:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="amount"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="submit"
+										class="create-button"
+										name="action"
+										value="edit-saving-category"
+									>
+										Update
+									</button>
+									<button
+										type="submit"
+										class="delete-button"
+										name="action"
+										value="delete-saving-category"
+									>
+										Delete
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 			</div>
 			{% else %}
+			<svg id="dashboard-empty-state" xmlns="http://www.w3.org/2000/svg" width="100" height="72" viewBox="0 0 110 72" style="opacity:0.8;">
+				<path class="red" d="M74,18H92A18,18,0,0,1,74,36Z" style="fill: #ff6161;fill-rule: evenodd;"/>
+				<circle class="purple" cx="64.96" cy="45" r="9" style="fill: #716bf1"/>
+				<path class="grey" d="M6.64,49.5l8.86,0a42.86,42.86,0,0,1,9-21l0-9.35" style="fill: none;stroke: #81a2b2;stroke-linecap: round;stroke-linejoin: round;stroke-width: 9px;stroke-dasharray: 0.1 500"/>
+				<path class="blue" d="M56,54V18A36,36,0,0,0,20,54Z" style="fill: #33afff;fill-rule: evenodd;"/>
+				<rect class="yellow" x="73.96" y="36" width="18" height="18" style="fill: #ffce53"/>
+				</svg>
 				<div class="button-div">
 					<button
 						type="button"
@@ -481,7 +579,92 @@
 						Create
 					</button>
 				</div>
+				<div
+			class="modal fade"
+			id="editDebtModal"
+			tabindex="-1"
+			aria-labelledby="editModalLabel"
+			aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel2">
+								Edit Debt Accounts
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category_spent" class="col-form-label">
+										Category:
+									</label>
+									<select id="category_chosen" name="account">
+										{% for debt in debt %}
+										<option value="{{ debt.debt_account }}">
+											{{ debt.debt_account }}
+										</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="account-name" class="col-form-label">
+										Account Name:
+									</label>
+									<input
+										type="text"
+										class="form-control"
+										name="account-name"
+									/>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Amount:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="amount"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="submit"
+										class="create-button"
+										name="action"
+										value="edit-debt-category"
+									>
+										Update
+									</button>
+									<button
+										type="submit"
+										class="delete-button"
+										name="action"
+										value="delete-debt-category"
+									>
+										Delete
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 				{% else %}
+				<svg id="dashboard-empty-state" xmlns="http://www.w3.org/2000/svg" width="100" height="72" viewBox="0 0 110 72" style="opacity:0.8;">
+					<path class="red" d="M74,18H92A18,18,0,0,1,74,36Z" style="fill: #ff6161;fill-rule: evenodd;"/>
+					<circle class="purple" cx="64.96" cy="45" r="9" style="fill: #716bf1"/>
+					<path class="grey" d="M6.64,49.5l8.86,0a42.86,42.86,0,0,1,9-21l0-9.35" style="fill: none;stroke: #81a2b2;stroke-linecap: round;stroke-linejoin: round;stroke-width: 9px;stroke-dasharray: 0.1 500"/>
+					<path class="blue" d="M56,54V18A36,36,0,0,0,20,54Z" style="fill: #33afff;fill-rule: evenodd;"/>
+					<rect class="yellow" x="73.96" y="36" width="18" height="18" style="fill: #ffce53"/>
+					</svg>
 				<div class="button-div">
 					<button
 						type="button"
@@ -928,12 +1111,11 @@
 <div class="login">
 	<div class="login-main">
 		<div class="login-form">
-			<form method="POST" action="{% url 'testapp:index' %}">
+			<form class="login-input" method="POST" action="{% url 'testapp:index' %}">
 				{% csrf_token %}
-				<h1>Login</h1>
+				<h1>Welcome</h1>
 				<form>
 					<div class="mb-3">
-						<label class="form-label">Username</label>
 						<input
 							type="username"
 							class="form-control"
@@ -943,9 +1125,6 @@
 						/>
 					</div>
 					<div class="mb-3">
-						<label for="exampleInputPassword1" class="form-label"
-							>Password</label
-						>
 						<input
 							type="password"
 							class="form-control"
@@ -955,18 +1134,14 @@
 							required
 						/>
 					</div>
-					<div class = "login-register">
-						<div class="login-submit">
-							<button type="submit" class="login-button">Login</button>
-						</div>
-						<div class="register">
-							<button class="register-button">
-								<a href="{% url 'testapp:register' %}">Register</a>
-							</button>
-						</div>
+					<div class="login-submit">
+						<button type="submit" class="login-button">Login</button>
 					</div>
 				</form>
 			</form>
+			<div class="register-link">
+				Don't have an account? <a href="{% url 'testapp:register' %}">Sign up</a>
+			</div>
 		</div>
 	</div>
 </div>

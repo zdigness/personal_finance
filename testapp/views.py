@@ -54,6 +54,13 @@ class IndexView(generic.ListView):
         context["debt_payment"] = Debt_Payment.objects.filter(
             user_id=self.request.user.id
         )
+        context["spending"] = Spending.objects.filter(user_id=self.request.user.id)
+        context["income"] = Income.objects.filter(user_id=self.request.user.id)
+        context["savings"] = Savings.objects.filter(user_id=self.request.user.id)
+        context["debt"] = Debt.objects.filter(user_id=self.request.user.id)
+        context["debt_payment"] = Debt_Payment.objects.filter(
+            user_id=self.request.user.id
+        )
         return context
 
     def post(self, request):
@@ -91,6 +98,7 @@ class IndexView(generic.ListView):
                     amount = request.POST["amount"]
                     account = request.POST["account"]
                     Debt.objects.create(
+                        user_id=request.user.id,
                         debt_account=account,
                         debt_amount=amount,
                     )
@@ -106,6 +114,7 @@ class IndexView(generic.ListView):
                     amount = request.POST["amount"]
                     account = request.POST["account"]
                     Savings.objects.create(
+                        user_id=request.user.id,
                         savings_account=account,
                         savings_amount=amount,
                     )
@@ -119,7 +128,7 @@ class IndexView(generic.ListView):
                     ) + float(amount)
                     savings_account.save()
                     return redirect(reverse("testapp:index"))
-                if request.POST["action"] == "edit-category":
+                if request.POST["action"] == "edit-spending-category":
                     category = request.POST["category"]
                     name = request.POST["category-name"]
                     budget = request.POST["monthly-budget"]
@@ -159,7 +168,7 @@ class IndexView(generic.ListView):
                             current_spending=current,
                         )
                     return redirect(reverse("testapp:index"))
-                if request.POST["action"] == "delete-category":
+                if request.POST["action"] == "delete-spending-category":
                     category = request.POST["category"]
                     Spending_Category.objects.filter(
                         spending_category=category
