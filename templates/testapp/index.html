@@ -11,8 +11,8 @@
 
 		<div class="spending">
 			<div class="category-list">
-				<div class="category-heading">
-					<h1><img class="money-sign" src="{% static 'testapp/img/money-sign.png' %}" alt="refresh" />Your Spending</h1>
+				<div class="category-heading spending-heading">
+					<h1 class="spending-h1"><img class="money-sign" src="{% static 'testapp/img/money-sign.png' %}" alt="refresh" />Your Spending</h1>
 					<button 
 					type="button" 
 					class="edit-button" 
@@ -1140,7 +1140,7 @@
 				</form>
 			</form>
 			<div class="register-link">
-				Don't have an account? <a href="{% url 'testapp:register' %}">Sign up</a>
+				<p>Don't have an account? <a href="{% url 'testapp:register' %}">Sign up</a></p>
 			</div>
 		</div>
 	</div>

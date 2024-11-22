@@ -1,132 +1,180 @@
 .register-link a {
-  outline: none;
+	outline: none;
 }
 
-.register-link a:link,
-.register-link a:visited {
-  text-decoration: none;
+.register-button-div {
+	display: flex;
+	justify-content: center; /* Horizontally centers the button */
+	align-items: center; /* Vertically centers the button */
+	margin-top: 20px; /* Adds spacing above the button */
+}
+
+.already-account {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
 }
 
 .register-button:hover {
-  background-color: darkgreen;
-  color: white;
+	background-color: darkgreen;
+	color: white;
 }
 
 .register-button a {
-  color: white;
-  text-decoration: none;
+	color: white;
+	text-decoration: none;
 }
 
 .register-button a:hover {
-  color: white;
+	color: white;
 }
 
 .register-button {
-  background-color: green;
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  width: 100px;
-  height: 35px;
-  border-radius: 16px;
+	background-color: green;
+	border: none;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	width: 100px;
+	height: 35px;
+	border-radius: 16px;
 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .register-button {
-  background-color: blue;
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  width: 250px;
-  height: 50px;
-  border-radius: 30px;
+	background-color: blue;
+	border: none;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	width: 250px;
+	height: 50px;
+	border-radius: 30px;
 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-  background-image: linear-gradient(to right, #3333ff 30%, #b300b3);
+	background-image: linear-gradient(to right, #3333ff 30%, #b300b3);
 }
 
 .register-button:hover {
-  background-color: darkblue;
-  color: white;
+	background-color: darkblue;
+	color: white;
 
-  background-image: linear-gradient(to right, #0000b8 30%, #6b006b);
+	background-image: linear-gradient(to right, #0000b8 30%, #6b006b);
 }
 
 .login-register {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 
-  gap: 10px;
-  margin-top: 20px;
+	gap: 10px;
+	margin-top: 20px;
 }
 
 .login-register p {
-  font-size: 20px;
-  margin: 5px;
+	font-size: 20px;
+	margin: 5px;
+}
+
+.register-main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .register-block {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  margin-top: 0px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+	margin-top: 50px;
 
-  margin-left: 35%;
-  margin-right: 35%;
+	width: 30%;
 
-  gap: 50px;
+	gap: 20px;
 
-  border-radius: 10px;
+	border-radius: 10px;
 
-  background: white;
-  color: black;
-  box-shadow: 0rem 0 2rem #000;
+	background: white;
+	color: black;
+	box-shadow: 0rem 0 2rem #000;
 
-  padding-top: 50px;
-  padding-bottom: 50px;
+	padding-top: 50px;
+	padding-bottom: 50px;
 
-  margin-bottom: 125px;
+	margin-bottom: 125px;
 
-  flex-grow: 1;
+	flex-grow: 1;
+}
+
+@media (max-width: 1200px) {
+	.login-form,
+	.register-block {
+		width: 50%;
+	}
+}
+
+@media (max-width: 1000px) {
+	.login-form,
+	.register-block {
+		width: 70%;
+	}
+}
+
+@media (max-width: 768px) {
+	.login-form,
+	.register-block {
+		width: 80%;
+	}
+
+	.register-link a,
+	.already-account a {
+		font-size: 14px;
+	}
+
+	.register-link,
+	.already-account {
+		margin-top: 20px;
+		font-size: 14px;
+	}
 }
 
 .register-block h1 {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  padding-bottom: 10px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	padding-bottom: 10px;
 }
 
 .register-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  gap: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+	padding-top: 0px;
+	gap: 20px;
 }
 
 .register-form p {
-  width: 80%;
+	width: 80%;
 }
 
 .register-submit {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
