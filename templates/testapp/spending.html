@@ -1,70 +1,50 @@
 {% extends '../base/base.html' %} {% block content %}
 <div class="analytics">
-  <div class="analytics-main">
-    <div class="chatbot-container">
-      <div class="chatbot-header">
-        <h1>Chatbot</h1>
-      </div>
-      <div class="chatbot-subheader">
-        <p>Any questions about your finances?</p>
-      </div>
-      <div id="chatbot-messages" class="chatbot-messages"></div>
-      <div class="chatbot-input">
-        <form action="" id="my-form">
-          {% csrf_token %}
-          <input
-            class="chatbot-input-field"
-            type="text"
-            name="message"
-            placeholder="Type your message..."
-          />
-        </form>
-      </div>
-    </div>
-    <div class="chart-container">
-      <div class="carousel-track">
-        <div class="carousel-slide">
-          <div class="chart-header">
-            <h1>Monthly Spending</h1>
-          </div>
-          <div class="chart-body">
-            <img
-              src="data:image/png;base64, {{ piechart }}"
-              alt="Matplotlib Plot"
-            />
-          </div>
-        </div>
-        <div class="carousel-slide">
-          <div class="chart-header">
-            <h1>Daily Spending</h1>
-          </div>
-          <div class="chart-body">
-            <img
-              src="data:image/png;base64, {{ barchart }}"
-              alt="Matplotlib Plot"
-            />
-          </div>
-        </div>
-      </div>
-      <button class="carousel-prev">&lt;</button>
-      <button class="carousel-next">&gt;</button>
-    </div>
-  </div>
+	<div class="analytics-main">
+		<div class="chart-container">
+			<div class="carousel-track">
+				<div class="carousel-slide">
+					<div class="chart-header">
+						<h1>Monthly Spending</h1>
+					</div>
+					<div class="chart-body">
+						<img
+							src="data:image/png;base64, {{ piechart }}"
+							alt="Matplotlib Plot"
+						/>
+					</div>
+				</div>
+				<div class="carousel-slide">
+					<div class="chart-header">
+						<h1>Daily Spending</h1>
+					</div>
+					<div class="chart-body">
+						<img
+							src="data:image/png;base64, {{ barchart }}"
+							alt="Matplotlib Plot"
+						/>
+					</div>
+				</div>
+			</div>
+			<button class="carousel-prev">&lt;</button>
+			<button class="carousel-next">&gt;</button>
+		</div>
+	</div>
 </div>
 
 <footer>
-  <div class="footer-links">
-    <hr />
-    <a href="https://github.com/zdigness/personal_finance"
-      ><img src="../../static/testapp/img/github.png"
-    /></a>
-    <a href="https://www.linkedin.com/in/zdigness/"
-      ><img src="../../static/testapp/img/linkedin.png"
-    /></a>
-    <hr />
-  </div>
-  <div class="footer-desc">
-    <p>© 2024 Zoli Digness. All rights reserved.</p>
-  </div>
+	<div class="footer-links">
+		<hr />
+		<a href="https://github.com/zdigness/personal_finance"
+			><img src="../../static/testapp/img/github.png"
+		/></a>
+		<a href="https://www.linkedin.com/in/zdigness/"
+			><img src="../../static/testapp/img/linkedin.png"
+		/></a>
+		<hr />
+	</div>
+	<div class="footer-desc">
+		<p>© 2024 Zoli Digness. All rights reserved.</p>
+	</div>
 </footer>
 {% endblock %}

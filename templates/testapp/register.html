@@ -1,50 +1,66 @@
-{% extends '../base/base.html' %} 
-
-{% block content %}
+{% extends '../base/base.html' %} {% block content %}
 <div class="register">
-    <div class="register-main">
-        <div class="register-block">
-            <form method="post" action="">
-                {% csrf_token %}
-                {% if form.errors %}
-                <div class="auth-alerts">
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        {% for field in form %}
-                            {% if field.errors %}
-                                {{ field.errors }}
-                            {% endif %}
-                        {% endfor %}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endif %}
-                <div class="register-form">
-                <h1>Create an account</h1>
-                {{ form.as_p }}
-                </div>
-                <div class="register-submit">
-                    <button type="submit" class="register-button">Register</button>
-                </div>
-            </form>
-            <div class="register-link">
-				Already have an account? <a href="{% url 'testapp:index' %}">Log in</a>
-			</div>
-        </div>
-    </div>
+	<div class="register-main">
+		<div class="register-block">
+			<h1>Register</h1>
+			<form method="post" action="">
+				{% csrf_token %}
+
+				<!-- Displaying Errors Outside the Form -->
+				{% if form.errors %}
+				<div class="auth-alerts">
+					<div
+						class="alert alert-warning alert-dismissible fade show"
+						role="alert"
+					>
+						{% for field in form %} {% for error in field.errors %}
+						<p>{{ error }}</p>
+						{% endfor %} {% endfor %}
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="alert"
+							aria-label="Close"
+						></button>
+					</div>
+				</div>
+				{% endif %}
+
+				<!-- Form Content -->
+				<div class="register-form">
+					<div class="form-group">{{ form.username }}</div>
+					<div class="form-group">{{ form.email }}</div>
+					<div class="form-group">{{ form.password1 }}</div>
+					<div class="form-group">{{ form.password2 }}</div>
+				</div>
+
+				<div class="register-button-div">
+					<button class="register-button" type="submit">Register</button>
+				</div>
+				<div class="already-account">
+					<p>
+						Already have an account?
+						<a href="{% url 'testapp:index' %}">Login</a>
+					</p>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 
 <footer>
-    <div class="footer-links">
-        <hr />
-        <a href="https://github.com/zdigness/personal_finance"
-            ><img src="../../static/testapp/img/github.png"
-        /></a>
-        <a href="https://www.linkedin.com/in/zdigness/"
-            ><img src="../../static/testapp/img/linkedin.png"
-        /></a>
-        <hr />
-    </div>
-    <div class="footer-desc">
-        <p>© 2024 Zoli Digness. All rights reserved.</p>
-    </div>
+	<div class="footer-links">
+		<hr />
+		<a href="https://github.com/zdigness/personal_finance"
+			><img src="../../static/testapp/img/github.png"
+		/></a>
+		<a href="https://www.linkedin.com/in/zdigness/"
+			><img src="../../static/testapp/img/linkedin.png"
+		/></a>
+		<hr />
+	</div>
+	<div class="footer-desc">
+		<p>© 2024 Zoli Digness. All rights reserved.</p>
+	</div>
 </footer>
 {% endblock %}

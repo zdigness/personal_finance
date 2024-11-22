@@ -11,8 +11,8 @@
 
 		<div class="spending">
 			<div class="category-list">
-				<div class="category-heading">
-					<h1><img class="money-sign" src="{% static 'testapp/img/money-sign.png' %}" alt="refresh" />Your Spending</h1>
+				<div class="category-heading spending-heading">
+					<h1 class="spending-h1"><img class="money-sign" src="{% static 'testapp/img/money-sign.png' %}" alt="refresh" />Your Spending</h1>
 					<button 
 					type="button" 
 					class="edit-button" 
@@ -151,6 +151,7 @@
 										type="text"
 										class="form-control"
 										name="category-name"
+										maxlength="10"
 									/>
 								</div>
 								<div class="mb-3">
@@ -161,6 +162,7 @@
 										type="text"
 										class="form-control"
 										name="monthly-budget"
+										maxlength="10"
 									></textarea>
 								</div>
 								<div class="mb-3">
@@ -171,6 +173,7 @@
 										type="text"
 										class="form-control"
 										name="current-spending"
+										maxlength="10"
 									></textarea>
 								</div>
 								<div class="modal-footer">
@@ -231,6 +234,7 @@
 										type="text"
 										class="form-control"
 										name="category-name"
+										maxlength="10"
 									/>
 								</div>
 								<div class="mb-3">
@@ -241,6 +245,7 @@
 										type="text"
 										class="form-control"
 										name="monthly-budget"
+										maxlength="10"
 									></textarea>
 								</div>
 								<div class="mb-3">
@@ -251,6 +256,7 @@
 										type="text"
 										class="form-control"
 										name="current-spending"
+										maxlength="10"
 									></textarea>
 								</div>
 								<div class="modal-footer">
@@ -332,6 +338,7 @@
 										type="text"
 										class="form-control"
 										name="category-name"
+										maxlength="10"
 									/>
 								</div>
 								<div class="mb-3">
@@ -342,6 +349,7 @@
 										type="text"
 										class="form-control"
 										name="monthly-budget"
+										maxlength="10"
 									></textarea>
 								</div>
 								<div class="mb-3">
@@ -352,6 +360,7 @@
 										type="text"
 										class="form-control"
 										name="current-spending"
+										maxlength="10"
 									></textarea>
 								</div>
 								<div class="modal-footer">
@@ -375,13 +384,13 @@
 
 		<div class="savings-debts">
 			<div class="savings-list">
-				<div class="savings-heading">
-					<h1><img class="safe" src="{% static 'testapp/img/safe.png' %}" alt="refresh" />Your Savings</h1>
+				<div class="category-heading">
+					<h1>Your Savings</h1>
 					<button 
 					type="button" 
 					class="edit-button" 
 					data-bs-toggle="modal"
-					data-bs-target="#editSavingModal"
+					data-bs-target="#editSavingsModal"
 					data-bs-whatever="@mdo"
 					>
 						<img class="edit-img" src="{% static 'testapp/img/white-edit.png' %}" alt="refresh" />
@@ -523,13 +532,13 @@
 			</div>
 			{% endif %}
 			<div class="debts-list">
-				<div class="debts-heading">
-					<h1><img class="debt" src="{% static 'testapp/img/debt.png' %}" alt="refresh" />Your Debts</h1>
+				<div class="category-heading">
+					<h1>Your Debts</h1>
 					<button 
 					type="button" 
 					class="edit-button" 
 					data-bs-toggle="modal"
-					data-bs-target="#editDebtModal"
+					data-bs-target="#editDebtsModal"
 					data-bs-whatever="@mdo"
 					>
 						<img class="edit-img" src="{% static 'testapp/img/white-edit.png' %}" alt="refresh" />
@@ -701,6 +710,7 @@
 										class="form-control"
 										id="message-text"
 										name="account"
+										maxlength="10"
 									></textarea>
 								</div>
 								<div class="mb-3">
@@ -711,6 +721,7 @@
 										class="form-control"
 										id="message-text"
 										name="amount"
+										maxlength="10"
 									></textarea>
 								</div>
 								<div class="modal-footer">
@@ -760,6 +771,7 @@
 										class="form-control"
 										id="message-text"
 										name="account"
+										maxlength="10"
 									></textarea>
 								</div>
 								<div class="mb-3">
@@ -770,6 +782,7 @@
 										class="form-control"
 										id="message-text"
 										name="amount"
+										maxlength="10"
 									></textarea>
 								</div>
 								<div class="modal-footer">
@@ -780,6 +793,168 @@
 										value="create_debt"
 									>
 										Create
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="modal fade"
+				id="editSavingsModal"
+				tabindex="-1"
+				aria-labelledby="editModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel2">
+								Edit Savings Accounts
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category_spent" class="col-form-label">
+										Account:
+									</label>
+									<select id="category_chosen" name="account">
+										{% for saving in savings %}
+										<option value="{{ saving.savings_account }}">
+											{{ saving.savings_account }}
+										</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="category-name" class="col-form-label">
+										Account Name:
+									</label>
+									<input
+										type="text"
+										class="form-control"
+										name="name"
+										maxlength="10"
+									/>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Savings:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="amount"
+										maxlength="10"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="submit"
+										class="create-button"
+										name="action"
+										value="edit-savings"
+									>
+										Update
+									</button>
+									<button
+										type="submit"
+										class="delete-button"
+										name="action"
+										value="delete-savings"
+									>
+										Delete
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="modal fade"
+				id="editDebtsModal"
+				tabindex="-1"
+				aria-labelledby="editModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel2">
+								Edit Debt Account
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<form action="" method="post">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="category_spent" class="col-form-label">
+										Account:
+									</label>
+									<select id="category_chosen" name="account">
+										{% for debts in debt %}
+										<option value="{{ debts.debt_account }}">
+											{{ debts.debt_account }}
+										</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="category-name" class="col-form-label">
+										Account Name:
+									</label>
+									<input
+										type="text"
+										class="form-control"
+										name="name"
+										maxlength="10"
+									/>
+								</div>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">
+										Debt Amount:
+									</label>
+									<textarea
+										type="text"
+										class="form-control"
+										name="amount"
+										maxlength="10"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="submit"
+										class="create-button"
+										name="action"
+										value="edit-debt"
+									>
+										Update
+									</button>
+									<button
+										type="submit"
+										class="delete-button"
+										name="action"
+										value="delete-debt"
+									>
+										Delete
 									</button>
 								</div>
 							</form>
@@ -831,6 +1006,7 @@
 									class="form-control"
 									id="message-text"
 									name="amount"
+									maxlength="10"
 								></textarea>
 							</div>
 							<div class="modal-footer">
@@ -892,6 +1068,7 @@
 										class="form-control"
 										id="message-text"
 										name="amount"
+										maxlength="10"
 									></textarea>
 								</div>
 								<div class="modal-footer">
@@ -963,7 +1140,7 @@
 				</form>
 			</form>
 			<div class="register-link">
-				Don't have an account? <a href="{% url 'testapp:register' %}">Sign up</a>
+				<p>Don't have an account? <a href="{% url 'testapp:register' %}">Sign up</a></p>
 			</div>
 		</div>
 	</div>
