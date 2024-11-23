@@ -2,7 +2,7 @@ services:
   web:
     container_name: web
     build: .
-    command: sh -c "python manage.py collectstatic --noinput && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --workers 3"
+    command: sh -c "python manage.py collectstatic --noinput && python manage.py migrate && gunicorn personal_finance.wsgi:application --bind 0.0.0.0:8000 --workers 3"
     volumes:
       - .:/app
     ports:
