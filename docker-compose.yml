@@ -9,19 +9,20 @@ services:
       - "8000:8000"
     depends_on:
       - db
-
-  db:
-    container_name: db
-    image: postgres:latest
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     env_file: .env
-    environment:
-      POSTGRES_DB: personal_finance
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - '5432:5432'
+
+  # db:
+  #   container_name: db
+  #   image: postgres:latest
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   env_file: .env
+  #   environment:
+  #     POSTGRES_DB: personal_finance
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #   ports:
+  #     - '5432:5432'
 
   # pgadmin:
   #   container_name: pgadmin
