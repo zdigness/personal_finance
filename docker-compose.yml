@@ -31,6 +31,7 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: root
+      GUNICORN_WORKERS: 1
     restart: always
 
 volumes:
