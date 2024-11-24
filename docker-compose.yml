@@ -14,6 +14,16 @@ services:
           cpus: '0.50'
           memory: 512M
 
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - web
+
   # db:
   #   container_name: db
   #   image: postgres:latest
